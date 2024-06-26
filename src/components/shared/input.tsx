@@ -1,6 +1,7 @@
 import theme, { Box, Text } from "../../utils/theme"
 import { FieldError } from "react-hook-form"
 import { StyleSheet, TextInput, TextInputProps } from "react-native"
+import { black, grey400 } from "react-native-paper/lib/typescript/styles/themes/v2/colors"
 
 type InputProps = {
   label: string
@@ -12,11 +13,15 @@ const Input = ({ label, error, ...props }: InputProps) => {
     
   return (
     <Box flexDirection="column" mb="3">
-      <Text variant="textXs" textTransform="uppercase" mb="3.5">
-        {label}
-      </Text>
-      <TextInput
-        style={{
+      <TextInput      
+          multiline
+          numberOfLines={props.numberOfLines}
+          textAlignVertical="top"
+          placeholder={label}
+          placeholderTextColor={'gray'}
+          
+        style={{ 
+          fontSize:18,
           color:'black',
           padding: 16,
           borderWidth: 1,
