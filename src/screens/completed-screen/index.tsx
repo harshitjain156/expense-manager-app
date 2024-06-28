@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from '../../utils/theme'
-import SafeAreaWrapper from '../../components/shared/safe-area-wrapper'
+import SafeAreaWrapper from '../../components/shared/SafeAreaWrapper'
 
 const CompletedScreen = () => {
   return (

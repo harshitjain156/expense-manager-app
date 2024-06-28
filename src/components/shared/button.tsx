@@ -22,7 +22,7 @@ const Button = ({
         bg={disabled ? "gray800" : "primary"}
         py="4"
         px="4"
-        borderRadius="rounded-7xl"
+        borderRadius="rounded-3xl"
       >
         <Text
           variant="textSm"

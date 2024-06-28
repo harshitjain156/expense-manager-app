@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box, Text } from '../../utils/theme'
-import SafeAreaWrapper from '../../components/shared/safe-area-wrapper'
+import SafeAreaWrapper from '../../components/shared/SafeAreaWrapper'
 import { FlatList, View } from 'react-native'
 import useSWR from 'swr'
 import { fetcher } from '../../services/configs'
-import Loader from '../../components/shared/loader'
+import Loader from '../../components/shared/Loader'
 import Category from '../../components/categories/category'
 import CreateNewList from '../../components/categories/create-new-list'
 const CategoriesScreen = () => {

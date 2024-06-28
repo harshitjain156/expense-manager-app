@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import SafeAreaWrapper from '../../components/shared/safe-area-wrapper'
+import SafeAreaWrapper from '../../components/shared/SafeAreaWrapper'
 import { FlatList, Pressable, TextInput, View } from 'react-native'
 import { Box, Text } from '../../utils/theme'
-import NavigateBack from '../../components/shared/navigate-back'
+import NavigateBack from '../../components/shared/NavigateBack'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../../utils/theme/colors'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'

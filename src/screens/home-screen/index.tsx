@@ -1,37 +1,46 @@
-import {ScrollView, StyleSheet } from 'react-native'
-import React from 'react'
-import SafeAreaWrapper from '../../components/shared/safe-area-wrapper'
-import Header from '../../components/shared/header'
-import Welcome from './components/welcome'
-import RecentTransactions from './components/recent-transactions'
-import ViewGroup from './components/view-group'
-import CustomLineChart from '../../components/graphs/line-chart'
-import CustomPieChart from '../../components/graphs/pie-chart'
-import TotalAmount from './components/total-amount'
+import {ScrollView, StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import SafeAreaWrapper from '../../components/shared/SafeAreaWrapper';
+import Header from '../../components/shared/Header';
+import Welcome from './components/Welcome';
+import RecentTransactions from './components/RecentTransactions';
+import ViewGroup from './components/ViewGroup';
+import TotalAmount from './components/TotalAmount';
+import ExpenseGraph from './components/ExpenseGraph';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {DrawerParamList} from '../../navigation/type';
 
-const HomeScreen = ({navigation}:{navigation:any}) => {
-
+const HomeScreen = ({
+  navigation,
+}: {
+  navigation: DrawerNavigationProp<DrawerParamList>;
+}) => {
   return (
     <SafeAreaWrapper>
+      <Header
+        onPress={() => {
+          navigation.openDrawer();
+        }}
+      />
       <ScrollView>
-       <Header onPress={()=>{
-        navigation.openDrawer()
-       }} />
-        <Welcome />
+        <Welcome
+          onPress={() => {
+            navigation.navigate('Groups');
+          }}
+        />
         <TotalAmount />
-        <CustomPieChart />
-        <CustomLineChart />
+        <ExpenseGraph />
         <RecentTransactions />
-        <ViewGroup />
-
-
+        <ViewGroup
+          onPress={() => {
+            navigation.navigate('Groups');
+          }}
+        />
       </ScrollView>
     </SafeAreaWrapper>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
 
-const styles = StyleSheet.create({
 
-})

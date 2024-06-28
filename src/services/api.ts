@@ -1,49 +1,40 @@
 import axios from "axios"
 import { TOKEN_NAME, saveToken } from "./configs"
 import axiosInstance from "./configs"
-// import * as SecureStore from 'expo-secure-store'
-// export const TOKEN_NAME="user_token"
-
-type RegisterUserTypes = IUser
-// export const BASE_URL='https://blossom-app-back-end.onrender.com/'
-const TIME_OUT=30000
-
-// const axiosInstance=axios.create({
-//     baseURL:BASE_URL,
-//     timeout:TIME_OUT
-// })
+import { ToastAndroid } from "react-native"
 
 export const registerUser = async ({
-    email, name, password
+    email, firstName,lastName, password
 }: IUser) => {
     console.log("enter",axiosInstance)
     try {
-        const response = await axiosInstance.post('/users/create', {
-            email:email, password:password, name:name
+        const response = await axiosInstance.post('/users/v1/register', {
+            emailId:email, password:password, firstName:firstName,lastName:lastName
         })
-        console.log("API Call",'+++++++++++++++++>')
-        return response.data.user
-    } catch (err) {
+        console.log(response,"API Call",'+++++++++++++++++>')
+        return response
+    } catch (err:any) {
         console.log(err,"+============")
+        ToastAndroid.show(err.response.data.message,ToastAndroid.SHORT)
         throw err
     }
 }
 
 export const loginUser = async ({
     email, password
-}: Omit<IUser,'name'>) => {
+}: Omit<IUser,'firstName' |'lastName'>) => {
     console.log("enter",axiosInstance)
     try {
-        const response = await axiosInstance.post('/users/login', {
-            email:email, password:password
+        const response = await axiosInstance.post('/users/v1/login', {
+            emailId:email, password:password
         })
-        const token=response.data.token
+        const token="Bearer "+response.data.accessToken
         axiosInstance.defaults.headers.common["Authorization"]=token
         saveToken(TOKEN_NAME,token)
-        console.log("API Call",'+++++++++++++++++>')
-        return response.data.user
-    } catch (err) {
-        console.log(err,"+============")
+        return response.data
+    } catch (err:any) {
+        // console.log(JSON.stringify(err))
+        ToastAndroid.show(err.response.data.message,ToastAndroid.SHORT)
         throw err
     }
 }

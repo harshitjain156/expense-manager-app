@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"
-export const BASE_URL='https://blossom-app-back-end.onrender.com/'
+export const BASE_URL='https://expense-manager-kzmh.onrender.com/api/'
 const TIME_OUT = 30000
 export const TOKEN_NAME="user_token"
 
@@ -22,9 +22,11 @@ axiosInstance.interceptors.request.use(async (req) => {
     req.headers.Authorization = access_token
     return req
   } catch (err) {
+    console.log('++++++++++++++')
     return req
   }
 })
+
 
 export const fetcher = (url: string) =>
   // console.log(url)

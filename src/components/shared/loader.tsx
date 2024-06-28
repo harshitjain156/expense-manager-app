@@ -1,5 +1,5 @@
 import React from 'react'
-import SafeAreaWrapper from './safe-area-wrapper'
+import SafeAreaWrapper from './SafeAreaWrapper'
 import { Box } from '../../utils/theme'
 import { ActivityIndicator } from 'react-native'
 

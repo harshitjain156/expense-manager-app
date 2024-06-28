@@ -56,3 +56,18 @@ export const getGreeting = ({ hour }: { hour: number }) => {
     return "night"
   }
 }
+
+
+
+export const checkActive = (split: any) => {
+  for (var key in split) {
+    if (split.hasOwnProperty(key)) {
+      if (Math.round(split[key]) != 0) return true;
+    }
+  }
+  return false;
+};
+export const convertToCurrency=(number: number)=> {
+  number = Math.abs(Math.round((number + Number.EPSILON) * 100) / 100);
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}

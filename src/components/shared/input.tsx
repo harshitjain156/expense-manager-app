@@ -14,9 +14,9 @@ const Input = ({ label, error, ...props }: InputProps) => {
   return (
     <Box flexDirection="column" mb="3">
       <TextInput      
-          multiline
           numberOfLines={props.numberOfLines}
           textAlignVertical="top"
+          
           placeholder={label}
           placeholderTextColor={'gray'}
           

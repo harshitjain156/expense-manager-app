@@ -35,3 +35,19 @@ export const data = [
       legendFontSize: 15
     }
   ];
+
+  export const pieChartData={
+    labels: ["",""],
+    datasets: [
+      {
+        data: [
+          Math.random() * 0,
+          Math.random() * 0,
+          Math.random() * 0,
+          Math.random() * 0,
+          Math.random() * 0,
+          Math.random() * 100
+        ]
+      }
+    ]
+  }

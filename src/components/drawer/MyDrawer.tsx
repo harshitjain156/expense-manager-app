@@ -3,10 +3,12 @@ import React from 'react'
 import { DrawerContentComponentProps, DrawerItem } from '@react-navigation/drawer'
 import { Box, Text } from '../../utils/theme'
 import { Drawer } from 'react-native-paper'
-import Icons from '../shared/icons'
+import Icons from '../shared/Icons'
 import SvgComponent from '../../assets/icons/drawer-icons/dashboard'
+import useUserGlobalStore from '../../store/useUserGlobalStore'
 
 const MyDrawer = ({ props }: { props: DrawerContentComponentProps }) => {
+    const {updateUser,user}=useUserGlobalStore()
     return (
         <Box p='4' flex={1}>
             <Box height={24} />
@@ -17,12 +19,12 @@ const MyDrawer = ({ props }: { props: DrawerContentComponentProps }) => {
                     }} />
                 </Box>
                 <Box width={14} />
-                <Box>
-                    <Text variant='textXl' fontWeight={900}>
-                        Harsh Dao
+                <Box justifyContent='center'>
+                    <Text variant='textBase' fontWeight={900}>
+                        {user?.firstName} {user?.lastName}
                     </Text>
-                    <Text variant='textBase' color='grey'>
-                        Harsh Dao
+                    <Text variant='textXs' color='grey'>
+                        {user?.email}
                     </Text>
                 </Box>
             </Box>
@@ -36,7 +38,7 @@ const MyDrawer = ({ props }: { props: DrawerContentComponentProps }) => {
                 }}
 
                 onPress={() => {
-                    props.navigation.navigate('HomeStack')
+                    props.navigation.navigate('Home')
                 }}
             />
             <DrawerItem
@@ -59,7 +61,19 @@ const MyDrawer = ({ props }: { props: DrawerContentComponentProps }) => {
                     props.navigation.navigate('CreateGroup')
                 }}
             />
-            <SvgComponent />
+            
+            <DrawerItem
+                label={'Logout'}
+                labelStyle={{
+                    color: 'gray'
+                    , fontSize: 18
+                }}
+                onPress={() => {
+                    updateUser(null)
+                }}
+            />
+            
+            
             <Box position='absolute' bottom={20} bg='red200' alignItems='center' left={0} right={0}>
                 <Text variant='textXs'>
                    SplitApp | Open Source 

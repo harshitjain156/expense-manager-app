@@ -6,7 +6,7 @@ import CompletedScreen from '../screens/completed-screen'
 import TodayScreen from '../screens/today-screen'
 import CategoryStackNavigator from './category-stack-navigator'
 import { color } from '@shopify/restyle'
-import Icons from '../components/shared/icons'
+import Icons from '../components/shared/Icons'
 import theme from '../utils/theme'
 const Tab = createBottomTabNavigator<RootBottomTabParamList>()
 const BottomTabNavigator = () => {

@@ -2,11 +2,12 @@ import React from 'react'
 import { Box, Text } from '../../utils/theme'
 import { useNavigation } from '@react-navigation/native'
 import { AuthScreenNavigationType } from '../../navigation/type'
-import Input from '../../components/shared/input'
-import Button from '../../components/shared/button'
+import Input from '../../components/shared/Input'
+import Button from '../../components/shared/Button'
 import { loginUser } from '../../services/api'
 import useUserGlobalStore from '../../store/useUserGlobalStore'
 import { Controller, useForm } from 'react-hook-form'
+import MoveToSignup from './components/MoveToSignup'
 
 const SignInScreen = () => {
   const {
@@ -22,14 +23,14 @@ const SignInScreen = () => {
   })
 
   const navigation = useNavigation<AuthScreenNavigationType<"SignIn">>()
-  const navigateToSignUpScreen = () => {
-  }
+
   const { updateUser } = useUserGlobalStore()
-  const onSubmit = async (data: Omit<IUser, 'name'>) => {
+  const onSubmit = async (data: Omit<IUser, 'firstName' |'lastName'>) => {
     try {
       const { email, password } = data;
       const user = await loginUser({ email, password })
-      updateUser({ email: user.email, name: user.name })
+      console.log(user)
+      updateUser({ email: user.emailId, firstName: user.firstName ,lastName:user.lastName,userId:user.userId})
     }
     catch (err) {
 
@@ -37,14 +38,12 @@ const SignInScreen = () => {
 
   }
   return (
-    <Box flex={1} px='5' mt={"13"}>
-      <Text variant='textXl' fontWeight={700}>
-        Welcome to Todo App
+    <Box flex={1} px='5' mt={"13"} justifyContent='center'>
+       <Text variant="textXl" fontWeight={900}>
+       Sign in to SplitApp!
       </Text>
-      <Text variant='textXl' fontWeight={700} mb='6'>
-        Journey Starts
-      </Text>
-
+      <Text variant="textBase" color="gray5" mb="6">
+      Enter your details below.      </Text>
       <Box mb="6" />
       <Controller
         control={control}
@@ -63,7 +62,7 @@ const SignInScreen = () => {
         )}
         name="email"
       />
-      <Box mb="6" />
+      <Box mb="4" />
       <Controller
         control={control}
         rules={{
@@ -76,17 +75,17 @@ const SignInScreen = () => {
             onChangeText={onChange}
             value={value}
             placeholder="Password"
-            error={errors.name}
+            error={errors.password}
             secureTextEntry
           />
         )}
         name="password"
       />
       <Box mb='5' />
-      <Button uppercase label='Register' onPress={handleSubmit(onSubmit)} />
-
-
-
+      <Button uppercase label='Login' onPress={handleSubmit(onSubmit)} />
+      <MoveToSignup onPress={()=>{
+        navigation.navigate('SignUp')
+      }} />
     </Box>
   )
 }

@@ -38,6 +38,7 @@ export type AppStackParamList={
 export type DrawerParamList={
     HomeStack:NavigatorScreenParams<AppStackParamList>
     Groups:undefined
+    CreateGroup:undefined
 }
 export type RootStackParamList={
     AppStack:NavigatorScreenParams<DrawerParamList>

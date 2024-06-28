@@ -1,73 +1,98 @@
-import React from 'react'
-import { TouchableOpacity, View } from 'react-native'
-import { Box, Text } from '../../utils/theme'
-import Input from '../../components/shared/input'
-import Button from '../../components/shared/button'
-import { useNavigation } from '@react-navigation/native'
-import { AuthScreenNavigationType } from '../../navigation/type'
-import { registerUser } from '../../services/api'
-import { Controller, useForm } from 'react-hook-form'
+import React from 'react';
+import {TouchableOpacity, View} from 'react-native';
+import {Box, Text} from '../../utils/theme';
+import Input from '../../components/shared/Input';
+import Button from '../../components/shared/Button';
+import {useNavigation} from '@react-navigation/native';
+import {AuthScreenNavigationType} from '../../navigation/type';
+import {registerUser} from '../../services/api';
+import {Controller, useForm} from 'react-hook-form';
+import MoveToSignIn from './components/MoveToSignIn';
 
 const SignUpScreen = () => {
-
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm<IUser>({
     defaultValues: {
-
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-  })
+  });
 
-
-  const navigation = useNavigation<AuthScreenNavigationType<"SignUp">>()
+  const navigation = useNavigation<AuthScreenNavigationType<'SignUp'>>();
   const onSubmit = async (data: IUser) => {
-    const { name, email, password } = data
+    const {firstName, lastName, email, password} = data;
     try {
-      console.log(data)
+      // console.log(data);
       await registerUser({
-        email, name, password
-      })
-      navigation.navigate('SignIn')
+        email,
+        firstName,
+        lastName,
+        password,
+      });
+      navigation.navigate('SignIn');
     } catch (error) {
-      console.warn(error,"++++++++++++++")
+      // console.warn(error, '++++++++++++++');
     }
-  }
+  };
   return (
-    <Box flex={1} px='5' mt={"13"}>
-      <Text variant='textXl' fontWeight={700}>
-        Welcome to Todo App
+    <Box flex={1} m="4" justifyContent="center">
+      <Text variant="textXl" fontWeight={900}>
+        Get started absolutely free.
       </Text>
-      <Text variant='textXl' fontWeight={700} mb='6'>
-        Journey Starts
+      <Text variant="textBase" color="gray5" mb="6">
+        Open Source, Group expense splitting app!
       </Text>
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            label="Name"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Name"
-            error={errors.name}
+      <Box flexDirection="row" justifyContent="center">
+        <Box flex={1}>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                label="First Name"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholder="First Name"
+                error={errors.firstName}
+              />
+            )}
+            name="firstName"
           />
-        )}
-        name="name"
-      />
-      <Box mb="6" />
+        </Box>
+        <Box width={16} />
+        <Box flex={1}>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                label="Last Name"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                placeholder="Last Name"
+                error={errors.lastName}
+              />
+            )}
+            name="lastName"
+          />
+        </Box>
+      </Box>
+      <Box mb="4" />
       <Controller
         control={control}
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({field: {onChange, onBlur, value}}) => (
           <Input
             label="Email"
             onBlur={onBlur}
@@ -79,43 +104,33 @@ const SignUpScreen = () => {
         )}
         name="email"
       />
-      <Box mb="6" />
+      <Box mb="4" />
       <Controller
         control={control}
         rules={{
           required: true,
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({field: {onChange, onBlur, value}}) => (
           <Input
             label="Password"
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             placeholder="Password"
-            error={errors.name}
+            error={errors.password}
             secureTextEntry
           />
         )}
         name="password"
       />
-      <Box mb='5' />
-      <Button uppercase label='Register' onPress={handleSubmit(onSubmit)} />
-      <View  style={{ alignItems:'center',justifyContent:'center',margin:20}}>
+      <Box mb="4" />
+      <Button uppercase label="Register" onPress={handleSubmit(onSubmit)} />
 
-        <TouchableOpacity 
-        onPress={()=>{
-          navigation.navigate('SignIn')
-          
-        }}
-        >
-          <Text variant='textXl' style={{color:'blue'}}>
-            Sign In
-          </Text>
-        </TouchableOpacity>
-          </View>
-
+      <MoveToSignIn onPress={()=>{
+        navigation.navigate('SignIn');
+      }}/>
     </Box>
-  )
-}
+  );
+};
 
-export default SignUpScreen
+export default SignUpScreen;
