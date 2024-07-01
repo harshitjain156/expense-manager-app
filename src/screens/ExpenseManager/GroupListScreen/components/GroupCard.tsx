@@ -17,14 +17,15 @@ const GroupCard = ({group}: {group: IGroup}) => {
           {group.groupDescription}
         </Text>
       </Box>
+      {/* this box is for icon */}
       <Box
         ml="4"
         height={60}
         width={60}
         borderRadius="rounded-9xl"
         bg="white"
-        mt="-2"
-      />
+        mt="-2"/> 
+        
       <Box p="4">
         <Box flexDirection="row" justifyContent="space-between" pt="4">
           <Text

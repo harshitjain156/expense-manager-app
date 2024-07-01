@@ -4,10 +4,11 @@ import TransactionCard from '../../../components/expense/TransactionCard';
 import useSWRMutation from 'swr/mutation';
 import {getExpenseData} from '../../../services/expenseapi';
 import useUserGlobalStore from '../../../store/useUserGlobalStore';
+import { RECENT_TRANSACTIONS } from '../../../utils/constants';
 
 const RecentTransactions = () => {
   const {trigger, isMutating} = useSWRMutation(
-    'expense/v1/user/recent',
+    RECENT_TRANSACTIONS,
     getExpenseData,
   );
   const {user} = useUserGlobalStore();

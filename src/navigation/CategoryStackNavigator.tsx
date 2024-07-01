@@ -1,9 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 import { CategoriesStackParamList, HomeStackParamList } from './type'
-
-import HomeScreen from '../screens/home-screen'
-import EditTaskScreen from '../screens/edit-task-screen'
 import CategoriesScreen from '../screens/categories-screen'
 import CategoryScreen from '../screens/category-screen'
 import CreateCategory from '../screens/create-category-screen'

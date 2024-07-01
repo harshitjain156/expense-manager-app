@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Text} from '../../../utils/theme';
-import CustomLineChart from '../../../components/graphs/CustomLineChart';
+import {Box, Text} from '../../../../utils/theme';
+import CustomLineChart from '../../../../components/graphs/CustomLineChart';
 import useSWRMutation from 'swr/mutation';
-import {getExpenseData} from '../../../services/expenseapi';
-import useUserGlobalStore from '../../../store/useUserGlobalStore';
-import {Month} from '../../../types/enums';
-import Loader from '../../../components/shared/Loader';
+import {getExpenseData} from '../../../../services/expenseapi';
+import useUserGlobalStore from '../../../../store/useUserGlobalStore';
+import {Month} from '../../../../types/enums';
+import { DAILY_EXPENSE } from '../../../../utils/constants';
+import { Loader } from '../../../../components';
 
 const ExpenseGraph = () => {
   const {trigger, isMutating} = useSWRMutation(
-    'expense/v1/user/dailyExp',
-    getExpenseData,
+    DAILY_EXPENSE,
+    getExpenseData,{
+      revalidate:true
+    }
   );
   const {user} = useUserGlobalStore();
   const [dailyExpenses, setDailyExpenses] = useState<any>();
@@ -35,8 +38,11 @@ const ExpenseGraph = () => {
   useEffect(() => {
     const data = getData();
   }, []);
-  if (isMutating || !dailyExpenses) {
+  if (isMutating) {
     return <Loader />;
+  }
+  if (!dailyExpenses) {
+    return null
   }
   return (
     <Box>

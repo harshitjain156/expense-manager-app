@@ -1,7 +1,7 @@
 
-import { createBox, createText, createTheme } from "@shopify/restyle"
+import { BoxProps, VariantProps, createBox, createRestyleComponent, createText, createTheme, createVariant } from "@shopify/restyle"
 import { colors } from "./colors"
-import { textVariants } from "./text-variants"
+import { textVariants,cardVariants } from "./text-variants"
 
 const theme = createTheme({
   colors: colors,
@@ -33,14 +33,34 @@ const theme = createTheme({
     "rounded-9xl": 50,
   },
   textVariants,
+  cardVariants
+  
 })
 
 export type Theme = typeof theme
 
 export const Box = createBox<Theme>()
 export const Text = createText<Theme>()
-
-
+const variant=createVariant<Theme,'cardVariants'>({
+  themeKey:'cardVariants'
+})
+// export const Card = createRestyleComponent<
+//   VariantProps<Theme, 'cardVariants'> & BoxProps<Theme>,
+//   Theme
+// >([variant], Box)
+export const Card = createRestyleComponent<
+  VariantProps<Theme, 'cardVariants'> & React.ComponentProps<typeof Box>,
+  Theme>(
+  [
+    createVariant({
+      themeKey: 'cardVariants',
+      defaults: {
+        backgroundColor: 'blu500',
+      },
+    }),
+  ],
+  Box,
+);
 export default theme
 
 

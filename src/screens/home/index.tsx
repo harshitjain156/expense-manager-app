@@ -1,23 +1,26 @@
 import {ScrollView, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import SafeAreaWrapper from '../../components/shared/SafeAreaWrapper';
-import Header from '../../components/shared/Header';
-import Welcome from './components/Welcome';
-import RecentTransactions from './components/RecentTransactions';
-import ViewGroup from './components/ViewGroup';
-import TotalAmount from './components/TotalAmount';
-import ExpenseGraph from './components/ExpenseGraph';
+
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {DrawerParamList} from '../../navigation/type';
+import {
+  ExpenseGraph,
+  RecentTransactions,
+  TotalAmount,
+  ViewGroup,
+  Welcome,
+} from './components';
+import {Header, SafeAreaWrapper} from '../../components';
+import { View } from 'react-native-reanimated/lib/typescript/Animated';
 
-const HomeScreen = ({
+const Home = ({
   navigation,
 }: {
   navigation: DrawerNavigationProp<DrawerParamList>;
 }) => {
   return (
     <SafeAreaWrapper>
-      <Header
+      {/* <Header
         onPress={() => {
           navigation.openDrawer();
         }}
@@ -36,11 +39,10 @@ const HomeScreen = ({
             navigation.navigate('Groups');
           }}
         />
-      </ScrollView>
+      </ScrollView> */}
+      <View></View>
     </SafeAreaWrapper>
   );
 };
 
-export default HomeScreen;
-
-
+export default Home;

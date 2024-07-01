@@ -5,7 +5,7 @@ import { FlatList, View } from 'react-native'
 import useSWR from 'swr'
 import { fetcher } from '../../services/configs'
 import Loader from '../../components/shared/Loader'
-import Category from '../../components/categories/category'
+import Category from '../../components/categories/Category'
 import CreateNewList from '../../components/categories/create-new-list'
 const CategoriesScreen = () => {
   const { data, isLoading, error } = useSWR<ICategory[]>('categories', fetcher,{

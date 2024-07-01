@@ -1,3 +1,4 @@
+import { backgroundColor } from "@shopify/restyle"
 
 export const textVariants = {
     defaults: {},
@@ -36,6 +37,17 @@ export const textVariants = {
       lineHeight: 40,
       color: "gray8",
     },
+  }
+
+  export const cardVariants={
+    default:{},
+    elevated:{
+      margin:'4',
+      padding:'4',
+      borderRadius:'rounded-3xl',
+      elevation:15,
+      backgroundColor:'blu500'
+    }
   }
   
   

@@ -1,13 +1,11 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import {Box, Text} from '../../utils/theme';
-import Input from '../../components/shared/Input';
-import Button from '../../components/shared/Button';
+import {Box, Text} from '../../../utils/theme';
 import {useNavigation} from '@react-navigation/native';
-import {AuthScreenNavigationType} from '../../navigation/type';
-import {registerUser} from '../../services/api';
+import {AuthScreenNavigationType} from '../../../navigation/type';
+import {registerUser} from '../../../services/api';
 import {Controller, useForm} from 'react-hook-form';
 import MoveToSignIn from './components/MoveToSignIn';
+import { Button, Input } from '../../../components';
 
 const SignUpScreen = () => {
   const {
