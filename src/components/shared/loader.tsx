@@ -1,7 +1,7 @@
 import React from 'react'
 import SafeAreaWrapper from './SafeAreaWrapper'
-import { Box } from '../../utils/theme'
 import { ActivityIndicator } from 'react-native'
+import { Box } from '../theme'
 
 
 const Loader = () => {

@@ -1,7 +1,8 @@
-import theme, { Box, Text } from "../../utils/theme"
+import theme from "../../utils/theme"
 import { FieldError } from "react-hook-form"
 import { StyleSheet, TextInput, TextInputProps } from "react-native"
 import { black, grey400 } from "react-native-paper/lib/typescript/styles/themes/v2/colors"
+import { Box, Text } from "../theme"
 
 type InputProps = {
   label: string

@@ -1,8 +1,8 @@
 import { View,  Pressable } from 'react-native'
 import React from 'react'
-import { Box, Text } from '../../utils/theme'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Image } from 'react-native'
+import { Box } from '../theme'
 
 export default function Header({onPress}:{onPress:Function}) {
   return (

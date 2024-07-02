@@ -1,7 +1,7 @@
 import React from 'react';
-import {Box, Text} from '../../utils/theme';
 import {PieChart} from 'react-native-chart-kit';
 import {data} from '../../utils/constants/chart-data';
+import { Box, Text } from '../theme';
 
 const CustomPieChart = () => {
   return (

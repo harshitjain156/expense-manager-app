@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Text} from '../../../../utils/theme';
 import useSWRMutation from 'swr/mutation';
 import {getExpenseData} from '../../../../services/expenseapi';
 import useUserGlobalStore from '../../../../store/useUserGlobalStore';
 import { RECENT_TRANSACTIONS } from '../../../../utils/constants';
-import { TransactionCard } from '../../../../components';
+import { Card, Text, TransactionCard } from '../../../../components';
 
 const RecentTransactions = () => {
   const {trigger, isMutating} = useSWRMutation(
@@ -30,12 +29,11 @@ const RecentTransactions = () => {
     return null;
   }
   return (
-    <Box
-      elevation={2}
-      m="4"
+    <Card
+    variant='elevated'
       p="2"
       backgroundColor="white"
-      borderRadius="rounded-3xl">
+      >
       <Text mb="4" variant="textXl" fontWeight={900}>
         Your Recent Transactions
       </Text>
@@ -45,7 +43,7 @@ const RecentTransactions = () => {
           <TransactionCard key={index} transaction={transactions[index]} />
         );
       })}
-    </Box>
+    </Card>
   );
 };
 

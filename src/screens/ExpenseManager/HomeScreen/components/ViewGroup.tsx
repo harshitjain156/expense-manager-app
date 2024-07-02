@@ -1,16 +1,15 @@
 import React from 'react';
-import {Box, Text} from '../../../../utils/theme';
 import {Image} from 'react-native';
-import OutlinedButton from '../../../../components/shared/OutlinedButton';
+import { Box, Card, OutlinedButton, Text } from '../../../../components';
 
 const ViewGroup = ({onPress}: {onPress: Function}) => {
   return (
-    <Box
-      elevation={2}
-      m="4"
+    <Card
+      
+    variant='elevated'
       p="6"
       backgroundColor="green200"
-      borderRadius="rounded-3xl"
+      
       justifyContent="center"
       alignItems="center">
       <Image
@@ -35,7 +34,7 @@ const ViewGroup = ({onPress}: {onPress: Function}) => {
             onPress();
           }}></OutlinedButton>
       </Box>
-    </Box>
+    </Card>
   );
 };
 

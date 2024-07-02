@@ -4,8 +4,8 @@ import {
   DrawerContentComponentProps,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {Box, Text} from '../../utils/theme';
 import useUserGlobalStore from '../../store/useUserGlobalStore';
+import { Box, Text } from '../theme';
 
 const MyDrawer = ({props}: {props: DrawerContentComponentProps}) => {
   const {updateUser, user} = useUserGlobalStore();

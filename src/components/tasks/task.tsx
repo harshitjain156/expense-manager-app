@@ -1,5 +1,4 @@
 import React from 'react'
-import { Box, Text } from '../../utils/theme'
 
 import useSWRMutation from 'swr/mutation';
 import { Pressable } from 'react-native';
@@ -7,6 +6,7 @@ import axios from 'axios';
 import axiosInstance from '../../services/configs';
 import { useNavigation } from '@react-navigation/native';
 import { HomeScreenNavigationType } from '../../navigation/type';
+import { Box, Text } from '../theme';
 type TaskProps = {
     task: ITask
 }

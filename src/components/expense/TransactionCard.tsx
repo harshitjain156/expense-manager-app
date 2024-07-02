@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Box, Text} from '../../utils/theme';
 import {Month} from '../../types/enums';
+import { Box, Text } from '../theme';
 
 const TransactionCard = ({transaction}: {transaction: ITransactions}) => {
   const date = new Date(transaction.expenseDate);

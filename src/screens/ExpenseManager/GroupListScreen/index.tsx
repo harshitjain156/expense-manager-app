@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {Box, Text} from '../../../utils/theme';
 import {ScrollView} from 'react-native-gesture-handler';
 import useSWRMutation from 'swr/mutation';
 import {getExpenseData} from '../../../services/expenseapi';
@@ -8,7 +7,7 @@ import useUserGlobalStore from '../../../store/useUserGlobalStore';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {DrawerParamList} from '../../../navigation/type';
 import {CreateGroupCard, GroupCard} from './components';
-import {Header} from '../../../components';
+import {Box, Header, Text} from '../../../components';
 import {GET_GROUP_LIST} from '../../../utils/constants';
 
 const GroupListScreen = ({

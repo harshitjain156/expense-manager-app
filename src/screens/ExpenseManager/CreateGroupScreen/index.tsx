@@ -1,10 +1,9 @@
 import React from 'react'
-import { Box, Text } from '../../../utils/theme'
 import Header from '../../../components/shared/Header'
 import Input from '../../../components/shared/Input'
-import CustomDropDown from '../../../components/shared/MultiSelectDropdown'
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { DrawerParamList } from '../../../navigation/type'
+import { Box, CustomDropdown, Text } from '../../../components'
 
 const CreateGroup = ({navigation}:{navigation:DrawerNavigationProp<DrawerParamList>}) => {
   
@@ -20,7 +19,7 @@ const CreateGroup = ({navigation}:{navigation:DrawerNavigationProp<DrawerParamLi
             <Box height={16}/>
             <Input label='Group Name' />
             <Input label='Group Description' numberOfLines={5}/>
-            <CustomDropDown />
+            <CustomDropdown />
         </Box>  
     </Box>
   )

@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Text} from '../../../../utils/theme';
 import useSWRMutation from 'swr/mutation';
 import useUserGlobalStore from '../../../../store/useUserGlobalStore';
 import {getExpenseData} from '../../../../services/expenseapi';
-import { MONTHLY_EXPENSE } from '../../../../utils/constants';
+import {MONTHLY_EXPENSE} from '../../../../utils/constants';
+import {Box, Card, Text} from '../../../../components';
 
 const TotalAmount = () => {
   const {trigger, isMutating} = useSWRMutation(
     MONTHLY_EXPENSE,
-    getExpenseData,{
-      revalidate:true
-    }
+    getExpenseData,
+    {
+      revalidate: true,
+    },
   );
 
   const {user} = useUserGlobalStore();
@@ -27,20 +28,11 @@ const TotalAmount = () => {
   }, []);
 
   return (
-    <Box
-      elevation={2}
-      m="4"
-      p="6"
-      backgroundColor="sky200"
-      borderRadius="rounded-3xl">
+    <Card variant="elevated" p="6" backgroundColor="sky200">
       <Box flexDirection="row">
-        <Box
-          borderRadius="rounded-9xl"
-          height={60}
-          width={60}
-          bg="blu700">
-            {/* =======This box is for icon ========== */}
-          </Box>
+        <Box borderRadius="rounded-9xl" height={60} width={60} bg="blu700">
+          {/* =======This box is for icon ========== */}
+        </Box>
         <Box width={16} />
         <Box flexDirection="column">
           <Text variant="textXl" color="blu700">
@@ -51,7 +43,7 @@ const TotalAmount = () => {
           </Text>
         </Box>
       </Box>
-    </Box>
+    </Card>
   );
 };
 

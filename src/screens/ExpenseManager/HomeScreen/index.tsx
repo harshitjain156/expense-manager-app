@@ -9,8 +9,7 @@ import {
   ViewGroup,
   Welcome,
 } from './components';
-import {Header, SafeAreaWrapper} from '../../../components';
-import { Card, Text } from '../../../utils/theme';
+import {Box, Header, SafeAreaWrapper, Text} from '../../../components';
 
 const HomeScreen = ({
   navigation,
@@ -25,11 +24,8 @@ const HomeScreen = ({
         }}
       />
       <ScrollView>
-        <Card variant='elevated'>
-          <Text>
-            This is for test purpose
-          </Text>
-        </Card>
+        <Box p='4'>
+
         <Welcome
           onPress={() => {
             navigation.navigate('Groups');
@@ -43,6 +39,7 @@ const HomeScreen = ({
             navigation.navigate('Groups');
           }}
         />
+            </Box>
       </ScrollView>
     </SafeAreaWrapper>
   );

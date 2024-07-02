@@ -1,12 +1,11 @@
 import React from 'react';
-import {Box, Text} from '../../../utils/theme';
 import {useNavigation} from '@react-navigation/native';
 import {AuthScreenNavigationType} from '../../../navigation/type';
 import {loginUser} from '../../../services/api';
 import useUserGlobalStore from '../../../store/useUserGlobalStore';
 import {Controller, useForm} from 'react-hook-form';
 import MoveToSignup from './components/MoveToSignup';
-import {Button, Input} from '../../../components';
+import {Box, Button, Input, Text} from '../../../components';
 
 const SignInScreen = () => {
   const {

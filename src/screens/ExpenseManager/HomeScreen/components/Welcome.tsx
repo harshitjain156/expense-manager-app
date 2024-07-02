@@ -1,17 +1,17 @@
 import React from 'react';
-import {Box, Text} from '../../../../utils/theme';
 import Button from '../../../../components/shared/Button';
 import {Image} from 'react-native';
+import { Box, Text,Card } from '../../../../components';
 
 const Welcome = ({onPress}: {onPress: Function}) => {
   return (
-    <Box
-      m="4"
-      elevation={2}
+    <Card
+      variant='elevated'
+      
       paddingHorizontal="6"
       pt="6"
       backgroundColor="sky200"
-      borderRadius="rounded-3xl">
+      >
       <Text variant="textXl" fontWeight={900} color="blu900">
         Hello there, Welcome back!
       </Text>
@@ -34,7 +34,7 @@ const Welcome = ({onPress}: {onPress: Function}) => {
           source={require('../../../../assets/illustrations/dashboard-card.png')}
         />
       </Box>
-    </Box>
+    </Card>
   );
 };
 

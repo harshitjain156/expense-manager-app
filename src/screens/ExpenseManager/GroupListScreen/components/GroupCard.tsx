@@ -1,14 +1,14 @@
 import React from 'react';
-import {Box, Text} from '../../../../utils/theme';
 import {Image} from 'react-native';
 import useUserGlobalStore from '../../../../store/useUserGlobalStore';
 import {checkActive, convertToCurrency} from '../../../../utils/helpers';
+import { Box, Card, Text } from '../../../../components';
 const GroupCard = ({group}: {group: IGroup}) => {
   const data = group.groupMembers;
   const {user} = useUserGlobalStore();
 
   return (
-    <Box mb="4" bg="white" borderRadius="rounded-3xl" overflow="hidden">
+    <Card variant='elevated' bg="white" overflow="hidden">
       <Box p="4" pb="6" bg="sky100">
         <Text variant="text2Xl" color="blu600" fontWeight={900} pt="6">
           {group.groupName}
@@ -90,7 +90,7 @@ const GroupCard = ({group}: {group: IGroup}) => {
           ) : null}
         </Box>
       </Box>
-    </Box>
+    </Card>
   );
 };
 
