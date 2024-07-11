@@ -1,15 +1,13 @@
 import React from 'react';
 import {Image} from 'react-native';
-import { Box, Card, OutlinedButton, Text } from '../../../../components';
+import {Box, Card, OutlinedButton, Text} from '../../../../components';
 
 const ViewGroup = ({onPress}: {onPress: Function}) => {
   return (
     <Card
-      
-    variant='elevated'
+      variant="elevated"
       p="6"
       backgroundColor="green200"
-      
       justifyContent="center"
       alignItems="center">
       <Image

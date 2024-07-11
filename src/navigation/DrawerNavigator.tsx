@@ -1,6 +1,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {CreateGroup, GroupListScreen, HomeScreen} from '../screens';
 import {MyDrawer} from '../components';
+import GroupNavigator from './GroupNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -14,7 +15,7 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         name="Groups"
-        component={GroupListScreen}
+        component={GroupNavigator}
         options={{headerShown: false}}
       />
       <Drawer.Screen

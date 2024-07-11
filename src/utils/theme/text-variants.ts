@@ -39,15 +39,5 @@ export const textVariants = {
     },
   }
 
-  export const cardVariants={
-    default:{},
-    elevated:{
-      margin:'4',
-      padding:'4',
-      borderRadius:'rounded-3xl',
-      elevation:15,
-      backgroundColor:'blu500'
-    }
-  }
-  
+
   

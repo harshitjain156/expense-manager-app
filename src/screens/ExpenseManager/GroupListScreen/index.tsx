@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native-gesture-handler';
 import useSWRMutation from 'swr/mutation';
@@ -7,11 +7,11 @@ import useUserGlobalStore from '../../../store/useUserGlobalStore';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {DrawerParamList} from '../../../navigation/type';
 import {CreateGroupCard, GroupCard} from './components';
-import {Box, Header, Text} from '../../../components';
+import {Box, Header, SafeAreaWrapper, Text} from '../../../components';
 import {GET_GROUP_LIST} from '../../../utils/constants';
 
 const GroupListScreen = ({
-  navigation,
+  navigation
 }: {
   navigation: DrawerNavigationProp<DrawerParamList>;
 }) => {
@@ -20,24 +20,32 @@ const GroupListScreen = ({
   });
   const {user} = useUserGlobalStore();
   const [groups, setGroups] = useState<IGroup[]>([]);
+  const [onRefresh,setOnReferesh]=useState(false)
   const getData = async () => {
+    setOnReferesh(true)
     const res = await trigger({
       emailId: user?.email!,
     });
     setGroups(res.groups);
+    setOnReferesh(false)
   };
   useEffect(() => {
     getData();
-  }, []);
+  }, [navigation]);
 
+  const renderItem=({item,index}:{item:IGroup, index:number})=>{
+    return <GroupCard group={item} key={item._id} />;
+  }
   return (
+    <SafeAreaWrapper>
+
     <Box flex={1}>
       <Header
         onPress={() => {
           navigation.openDrawer();
         }}
       />
-      <ScrollView>
+      
         <Box m="4">
           <Box>
             <Text variant="text2Xl" fontWeight={900}>
@@ -45,19 +53,31 @@ const GroupListScreen = ({
             </Text>
           </Box>
           <Box height={16} />
-          {groups.map((item, index) => {
-            return <GroupCard group={item} key={index} />;
-          })}
-          <CreateGroupCard
+          <FlatList style={{marginBottom:120}} data={groups} 
+          refreshing={onRefresh}
+          onRefresh={()=>{getData()}}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
+          ListFooterComponent={<CreateGroupCard
             onPress={() => {
-              navigation.navigate('CreateGroup');
+              navigation.navigate('CreateGroup',{});
             }}
+          />}
           />
+          <Box height={46} />
+          {/* {groups.map((item, index) => {
+            return <GroupCard group={item} key={item._id} />;
+          })} */}
+          
         </Box>
-      </ScrollView>
+      
     </Box>
+    </SafeAreaWrapper>
+
   );
 };
+
+
 
 export default GroupListScreen;
 

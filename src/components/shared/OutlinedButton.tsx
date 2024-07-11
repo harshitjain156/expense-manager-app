@@ -1,4 +1,4 @@
-import { Pressable, Touchable, TouchableOpacity } from "react-native"
+import { Pressable, Touchable, TouchableOpacity, TouchableOpacityProps } from "react-native"
 import { Box, Text } from "../theme"
 
 type ButtonProps = {
@@ -7,7 +7,7 @@ type ButtonProps = {
   onLongPress?: () => void
   disabled?: boolean
   uppercase?: boolean
-}
+}& TouchableOpacityProps
 
 const OutlinedButton = ({
   label,

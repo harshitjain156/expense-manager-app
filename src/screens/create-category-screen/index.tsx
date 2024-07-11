@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import SafeAreaWrapper from '../../components/shared/SafeAreaWrapper'
 import { Pressable, TextInput, View } from 'react-native'
-import { Box, Text } from '../../utils/theme'
 import NavigateBack from '../../components/shared/NavigateBack'
 import { colors } from '../../utils/theme/colors'
 import { getColors, getIcons } from '../../utils/helpers'
@@ -13,6 +12,7 @@ import { useSWRConfig } from 'swr'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { CategoriesStackParamList } from '../../navigation/type'
+import { Box, Text } from '../../components'
 const COLORS = getColors()
 const ICONS = getIcons()
 

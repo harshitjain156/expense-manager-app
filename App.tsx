@@ -1,15 +1,19 @@
 
 import 'react-native-gesture-handler';
 import {ThemeProvider} from '@shopify/restyle';
-import theme, {Text} from './src/utils/theme';
+import theme from './src/utils/theme';
 import {AppState, View} from 'react-native';
 import Navigation from './src/navigation';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {SWRConfig} from 'swr';
+import { PaperProvider } from 'react-native-paper';
 
 function App(): React.JSX.Element {
   return (
     <ThemeProvider theme={theme}>
+      <PaperProvider>
+
+      
       <SafeAreaProvider>
         <SWRConfig
           value={{
@@ -45,6 +49,7 @@ function App(): React.JSX.Element {
           <Navigation />
         </SWRConfig>
       </SafeAreaProvider>
+      </PaperProvider>
     </ThemeProvider>
   );
 }

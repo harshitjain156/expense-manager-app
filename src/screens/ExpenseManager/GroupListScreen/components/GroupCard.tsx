@@ -1,13 +1,29 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 import useUserGlobalStore from '../../../../store/useUserGlobalStore';
 import {checkActive, convertToCurrency} from '../../../../utils/helpers';
 import { Box, Card, Text } from '../../../../components';
+import { useNavigation } from '@react-navigation/native';
+import { DrawerParamList, DrawerTabScreenProps, GroupsParamList } from '../../../../navigation/type';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Icon } from 'react-native-elements';
+
 const GroupCard = ({group}: {group: IGroup}) => {
+  const navigation=useNavigation<DrawerTabScreenProps<'Groups'>>()
+  const navigator=useNavigation<NativeStackNavigationProp<GroupsParamList>>()
   const data = group.groupMembers;
   const {user} = useUserGlobalStore();
-
+  const navigateToEditGroupScreen=()=>{
+    navigation.navigate("CreateGroup",{
+      group:group
+    })}
   return (
+    <TouchableOpacity onPress={()=>{
+      navigator.push('GroupDetails',{
+        group:group
+      })
+    }} onLongPress={navigateToEditGroupScreen}>
     <Card variant='elevated' bg="white" overflow="hidden">
       <Box p="4" pb="6" bg="sky100">
         <Text variant="text2Xl" color="blu600" fontWeight={900} pt="6">
@@ -22,9 +38,13 @@ const GroupCard = ({group}: {group: IGroup}) => {
         ml="4"
         height={60}
         width={60}
+        justifyContent='center'
         borderRadius="rounded-9xl"
         bg="white"
-        mt="-2"/> 
+        mt="-2">
+                <Icon name={'clipboard-notes'} type="foundation"  />
+
+        </Box>
         
       <Box p="4">
         <Box flexDirection="row" justifyContent="space-between" pt="4">
@@ -91,6 +111,8 @@ const GroupCard = ({group}: {group: IGroup}) => {
         </Box>
       </Box>
     </Card>
+
+    </TouchableOpacity>
   );
 };
 

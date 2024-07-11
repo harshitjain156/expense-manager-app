@@ -89,6 +89,22 @@ interface IGroup {
   split: any;
   _id: string;
 }
+interface ICreateGroup {
+  groupCategory: string;
+  groupCurrency: string;
+  groupDescription: string;
+  groupMembers: string[];
+  groupName: string;
+}
+
+interface ICreateExpense{
+  expenseName:string
+  expenseDescription:string
+  paymentMethod:string
+  expenseOwner:string
+  expenseAmount:string
+  expenseCategory:string
+}
 
 interface IDailyExpense {
   _id: {date: 24; month: 6; year: 2024};

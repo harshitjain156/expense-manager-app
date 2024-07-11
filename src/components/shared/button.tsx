@@ -1,4 +1,4 @@
-import { Pressable } from "react-native"
+import { Pressable, TouchableOpacity } from "react-native"
 import { Box, Text } from "../theme"
 
 type ButtonProps = {
@@ -17,7 +17,7 @@ const Button = ({
   uppercase,
 }: ButtonProps) => {
   return (
-    <Pressable onPress={onPress} onLongPress={onLongPress} disabled={disabled}>
+    <TouchableOpacity onPress={onPress} onLongPress={onLongPress} disabled={disabled}>
       <Box
         bg={disabled ? "gray800" : "primary"}
         py="4"
@@ -34,7 +34,7 @@ const Button = ({
           {label}
         </Text>
       </Box>
-    </Pressable>
+    </TouchableOpacity>
   )
 }
 
