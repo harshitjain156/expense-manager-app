@@ -6,7 +6,6 @@ import { Image } from 'react-native';
 
 const SettlementCard = ({settlement,Settle}:{settlement:string[],Settle:Function}) => {
   const {user}=useUserGlobalStore()
-  console.log(settlement)
   if(settlement.length==0){
     return null
   }
@@ -46,7 +45,7 @@ const SettlementCard = ({settlement,Settle}:{settlement:string[],Settle:Function
         <Text variant="textBase" color="red700" fontWeight={700}>
           Rs {settlement[2]}
         </Text>
-        {user?.email!=settlement[0]?<TouchableOpacity onPress={()=>{Settle()}}>
+        {user?.email==settlement[0]?<TouchableOpacity onPress={()=>{Settle()}}>
           <Box justifyContent="center">
         <Text variant="textBase" color="blu700" fontWeight={900}>
           Settle

@@ -26,7 +26,6 @@ const SignInScreen = () => {
     try {
       const {email, password} = data;
       const user = await loginUser({email, password});
-      console.log(user);
       updateUser({
         email: user.emailId,
         firstName: user.firstName,

@@ -3,7 +3,8 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import GroupDetailScreen from '../screens/ExpenseManager/GroupDetailScreen'
 import { GroupListScreen } from '../screens'
-const Stack=createNativeStackNavigator()
+import { GroupsParamList } from './type'
+const Stack=createNativeStackNavigator<GroupsParamList>()
 
 const GroupNavigator = () => {
   return (

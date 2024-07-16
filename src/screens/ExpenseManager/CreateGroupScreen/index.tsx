@@ -30,7 +30,6 @@ import {RouteProp, useFocusEffect, useRoute} from '@react-navigation/native';
 type CreateGroupRouteType = RouteProp<DrawerParamList, 'CreateGroup'>;
 const CreateGroup = ({navigation}: {navigation: any}) => {
   const route = useRoute<CreateGroupRouteType>();
-  // console.log(route.params.group)
   const {user} = useUserGlobalStore();
   const {data: emails, isLoading} = useSWR<any>(GET_USER_EMAILS, fetcher, {
     refreshInterval: 2000,
@@ -52,10 +51,10 @@ const CreateGroup = ({navigation}: {navigation: any}) => {
     formState: {errors},
   } = useForm<Omit<ICreateGroup, 'groupMembers' | 'groupCurrency'>>({});
 
-  console.log(control._formValues,errors);
   const clear = () => {
     control._reset()
-
+    setValue("groupName","")
+    setValue("groupDescription","")
     setSelected([user?.email!]);
     setCategory('');
   };
@@ -101,12 +100,10 @@ const CreateGroup = ({navigation}: {navigation: any}) => {
       setSelected([user?.email!]);
       navigation.navigate('Groups');
       clear();
-      console.log(res, '==>>>>>>>>>>>>>>>>>');
     } catch (error) {}
   };
 
   const onEdit = async () => {
-    console.log('first');
     try {
       const data = {
         id: route.params.group?._id,

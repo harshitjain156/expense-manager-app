@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -14,35 +14,46 @@ import {
   PaymentMethods,
 } from '../../../../utils/constants/chart-data';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {format} from 'date-fns';
-import {Controller, useForm} from 'react-hook-form';
-import { ScrollView} from 'react-native';
-const AddExpenseModal = ({group, hide}: {group: IGroup; hide: Function}) => {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+import { format } from 'date-fns';
+import { Controller, useForm } from 'react-hook-form';
+import { ScrollView } from 'react-native';
+import useSWRMutation from 'swr/mutation';
+import { getExpenseData } from '../../../../services/expenseapi';
+import { ADD_EXPENSE } from '../../../../utils/constants';
+import { TextInput } from 'react-native-paper';
+const AddExpenseModal = ({ group, hide, expense }: { group?: IGroup; hide: Function, expense?: ITransactions }) => {
+  const [selectedDate, setSelectedDate] = useState<Date>(expense?.expenseDate ? new Date(expense!.expenseDate!.split("T")[0].toString()) : new Date());
   const [selectingDate, setIsSelectingDate] = useState<boolean>(false);
-  const [paymentMethod, setPaymentMethod] = useState<string>('');
-  const [expenseOwner, setExpenseOwner] = useState<string>('');
-  const [expenseCategory, setExpenseCategory] = useState<string>('');
-  const [expenseMembers, setExpenseMembers] = useState<string[]>(
-    group.groupMembers,
-  );
-  const groupEmails = group.groupMembers.map((item: string) => {
-    return {label: item, value: item};
+  const [paymentMethod, setPaymentMethod] = useState<string>(expense?.expenseType ?? '');
+  const [expenseOwner, setExpenseOwner] = useState<string>(expense?.expenseOwner ?? '');
+  const [expenseCategory, setExpenseCategory] = useState<string>(expense?.expenseCategory ?? '');
+  const [expenseMembers, setExpenseMembers] = useState<string[]>(expense?.expenseMembers ?? group!.groupMembers);
+  const groupEmails = group!.groupMembers.map((item: string) => {
+    return { label: item, value: item };
   });
+
+  const { trigger, isMutating } = useSWRMutation(ADD_EXPENSE, getExpenseData);
+
 
   const {
     control,
     handleSubmit,
-    formState: {errors},
-  } = useForm<ICreateExpense>({});
-  const onSubmit = (data: any) => {
-    console.log(control._formValues);
+    formState: { errors },
+  } = useForm<ICreateExpense>({
+
+  });
+
+  const onSubmit = async (data: any) => {
+    console.log(data, "-------")
+    console.log({ ...control._formValues, expenseMembers: expenseMembers, groupId: group!._id, expenseDate: selectedDate })
+    await trigger({...control._formValues,expenseMembers:expenseMembers,groupId:group!._id,expenseDate:selectedDate})
+    hide()
   };
   return (
     <Box
       flex={1}
       m="4"
-      style={{backgroundColor: '#ffffff90'}}
+      style={{ backgroundColor: '#ffffff90' }}
       justifyContent="center">
       <Box>
         <ScrollView>
@@ -51,9 +62,9 @@ const AddExpenseModal = ({group, hide}: {group: IGroup; hide: Function}) => {
               Add Expense
             </Text>
             <Controller
-              rules={{required: true}}
+              rules={{ required: true }}
               control={control}
-              render={({field: {onChange, onBlur, value}}) => (
+              render={({ field: { onChange, onBlur, value = expense?.expenseName ?? '' } }) => (
                 <CustomInput
                   label={'Expense Name'}
                   onBlur={onBlur}
@@ -66,9 +77,9 @@ const AddExpenseModal = ({group, hide}: {group: IGroup; hide: Function}) => {
             />
 
             <Controller
-              rules={{required: true}}
+              rules={{ required: true }}
               control={control}
-              render={({field: {onChange, onBlur, value}}) => (
+              render={({ field: { onChange, onBlur, value = expense?.expenseDescription ?? '' } }) => (
                 <CustomInput
                   onChangeText={onChange}
                   onBlur={onBlur}
@@ -90,9 +101,9 @@ const AddExpenseModal = ({group, hide}: {group: IGroup; hide: Function}) => {
               value={format(new Date(selectedDate!), 'dd/MM/yyyy')}
             />
             <Controller
-              rules={{required: true}}
+              rules={{ required: true }}
               control={control}
-              render={({field: {onChange, onBlur, value = paymentMethod}}) => (
+              render={({ field: { onChange, onBlur, value = paymentMethod } }) => (
                 <CustomDropdown
                   onChangeText={onChange}
                   onBlur={onBlur}
@@ -100,15 +111,15 @@ const AddExpenseModal = ({group, hide}: {group: IGroup; hide: Function}) => {
                   value={value}
                   setValue={setPaymentMethod}
                   data={PaymentMethods}
-                  errors={errors.paymentMethod}
+                  errors={errors.expenseType}
                 />
               )}
-              name="paymentMethod"
+              name="expenseType"
             />
             <Controller
-              rules={{required: true}}
+              rules={{ required: true }}
               control={control}
-              render={({field: {onChange, onBlur, value = expenseOwner}}) => (
+              render={({ field: { onChange, onBlur, value = expenseOwner } }) => (
                 <CustomDropdown
                   onChangeText={onChange}
                   onBlur={onBlur}
@@ -122,10 +133,10 @@ const AddExpenseModal = ({group, hide}: {group: IGroup; hide: Function}) => {
               name="expenseOwner"
             />
             <Controller
-              rules={{required: true}}
+              rules={{ required: true }}
               control={control}
               render={({
-                field: {onChange, onBlur, value = expenseCategory},
+                field: { onChange, onBlur, value = expenseCategory },
               }) => (
                 <CustomDropdown
                   onChangeText={onChange}
@@ -140,17 +151,32 @@ const AddExpenseModal = ({group, hide}: {group: IGroup; hide: Function}) => {
               name="expenseCategory"
             />
             <Controller
-              rules={{required: true}}
               control={control}
-              render={({field: {onChange, onBlur, value}}) => (
+              rules={{ required: true,
+
+                validate: (value) => { 
+                  console.log(value.toString()); 
+                  return parseFloat(value.toString()) > 0 
+                } 
+              }} // Add validation rules for expenseAmount              control={control}
+              render={({ field: { onChange, onBlur, value=0} }) => (
                 <CustomInput
                   label={'Expense Amount'}
                   keyboardType={'number-pad'}
-                  inlineImageLeft={`\u20A8`}
                   onBlur={onBlur}
-                  value={value}
-                  onChangeText={onChange}
-                  errors={errors.expenseAmount}
+                  value={value.toString()}
+                  left={<TextInput.Affix text={`\u20A8`} />}
+                  onChangeText={(text) => {
+                    const parsedValue = parseFloat(text);
+                    console.log(parsedValue)
+                    if (!isNaN(parsedValue) && parseFloat(text)>0) {
+                      onChange(parsedValue);
+                    } else {
+                      onChange(text);
+                    }
+                  }}
+
+                  errors={errors?.expenseAmount}
                 />
               )}
               name="expenseAmount"

@@ -9,7 +9,6 @@ type InputProps = {
   
   
 const CustomInput = ({errors,...props}:InputProps) => {
-    console.log(errors,"=============================-")
   return (
    <Box>
     <TextInput  mode='outlined' style={{backgroundColor:'white'}} activeOutlineColor={'gray'} {...props} textColor='black'/>

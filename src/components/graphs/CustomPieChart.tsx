@@ -1,9 +1,15 @@
 import React from 'react';
-import {PieChart} from 'react-native-chart-kit';
-import {data} from '../../utils/constants/chart-data';
-import { Box, Text } from '../theme';
+import {Box, Text} from '../theme';
+import {PieChart, pieDataItem} from 'react-native-gifted-charts';
+import {Dimensions} from 'react-native';
 
-const CustomPieChart = () => {
+const CustomPieChart = ({
+  categories,
+  label,
+}: {
+  categories: pieDataItem[];
+  label: string;
+}) => {
   return (
     <Box
       elevation={2}
@@ -14,21 +20,41 @@ const CustomPieChart = () => {
       shadowRadius={4}
       shadowColor="gray5">
       <Text mb="4" variant="textXl" fontWeight={700} textAlign="left">
-        Groupwise Expense Chart
+        {label}
       </Text>
       <PieChart
-        data={data}
-        width={300}
-        height={300}
-        chartConfig={{
-          color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-        }}
-        accessor={'population'}
-        backgroundColor={'transparent'}
-        paddingLeft={'5'}
-        center={[50, 0]}
-        style={{}}
+        donut
+        showValuesAsLabels
+        labelsPosition={'mid'}
+        textColor="black"
+        radius={150}
+        textSize={14}
+        textBackgroundRadius={1}
+        data={categories}
       />
+      <Box
+        mt="4"
+        flexDirection="row"
+        gap={'4'}
+        columnGap="4"
+        flexWrap="wrap"
+        justifyContent="space-between">
+        {categories.map((item, index) => {
+          return (
+            <Box
+              key={index}
+              flexDirection="row"
+              width={Dimensions.get('window').width * 0.35}>
+              <Box
+                height={20}
+                width={40}
+                style={{backgroundColor: item.color}}
+              />
+              <Text> {item.text}</Text>
+            </Box>
+          );
+        })}
+      </Box>
     </Box>
   );
 };

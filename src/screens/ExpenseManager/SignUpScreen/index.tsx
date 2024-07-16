@@ -22,7 +22,6 @@ const SignUpScreen = () => {
   const onSubmit = async (data: IUser) => {
     const {firstName, lastName, email, password} = data;
     try {
-      // console.log(data);
       await registerUser({
         email,
         firstName,

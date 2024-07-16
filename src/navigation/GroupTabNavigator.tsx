@@ -42,7 +42,7 @@ const GroupTabNavigator=({group}:{group:IGroup})=> {
         }
         
     }} >
-      <Tab.Screen name="Group Expense" component={GroupExpenses}  />
+      <Tab.Screen name="Group Expense" component={GroupExpenses} initialParams={group}  />
       <Tab.Screen name="Group Balance"  component={GroupBalance} initialParams={group}/>
       <Tab.Screen name="My Balance" component={GroupExpenses} />
     </Tab.Navigator>

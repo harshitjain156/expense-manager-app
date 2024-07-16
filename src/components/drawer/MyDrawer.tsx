@@ -5,7 +5,8 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import useUserGlobalStore from '../../store/useUserGlobalStore';
-import { Box, Text } from '../theme';
+import { Box, Text } from '../';
+import CustomDrawerItem from './CustomDrawerItem';
 
 const MyDrawer = ({props}: {props: DrawerContentComponentProps}) => {
   const {updateUser, user} = useUserGlobalStore();
@@ -34,48 +35,18 @@ const MyDrawer = ({props}: {props: DrawerContentComponentProps}) => {
         </Box>
       </Box>
       <Box height={24} />
-      <DrawerItem
-        label={'Dashboard'}
-        labelStyle={{
-          color: 'gray',
-          fontSize: 18,
-        }}
-        onPress={() => {
+      <CustomDrawerItem label='Dashboard'  onPress={() => {
           props.navigation.navigate('Home');
-        }}
-      />
-      <DrawerItem
-        label={'Groups'}
-        labelStyle={{
-          color: 'gray',
-          fontSize: 18,
-        }}
-        onPress={() => {
+        }}/>
+      <CustomDrawerItem label='Groups'  onPress={() => {
           props.navigation.navigate('Groups');
-        }}
-      />
-      <DrawerItem
-        label={'Create Group'}
-        labelStyle={{
-          color: 'gray',
-          fontSize: 18,
-        }}
-        onPress={() => {
-          props.navigation.navigate('CreateGroup');
-        }}
-      />
-
-      <DrawerItem
-        label={'Logout'}
-        labelStyle={{
-          color: 'gray',
-          fontSize: 18,
-        }}
-        onPress={() => {
+        }}/>
+      <CustomDrawerItem label='Create Group'  onPress={() => {
+          props.navigation.navigate('CreateGroups');
+        }}/>
+      <CustomDrawerItem label='Logout'  onPress={() => {
           updateUser(null);
-        }}
-      />
-
+        }}/>
       <Box
         position="absolute"
         bottom={20}

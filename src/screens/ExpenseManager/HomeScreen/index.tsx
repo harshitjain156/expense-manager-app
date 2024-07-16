@@ -1,7 +1,5 @@
-import {ScrollView, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
-import {DrawerParamList} from '../../../navigation/type';
+import {ScrollView} from 'react-native';
+import React, {useCallback, useState} from 'react';
 import {
   ExpenseGraph,
   RecentTransactions,
@@ -10,12 +8,34 @@ import {
   Welcome,
 } from './components';
 import {Box, Header, SafeAreaWrapper, Text} from '../../../components';
+import {MONTHLY_EXPENSE} from '../../../utils/constants';
+import useSWRMutation from 'swr/mutation';
+import {getExpenseData} from '../../../services/expenseapi';
+import useUserGlobalStore from '../../../store/useUserGlobalStore';
+import {CompositeNavigationProp, CompositeScreenProps, useFocusEffect, useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {DrawerParamList, DrawerTabScreenProps, GroupsParamList} from '../../../navigation/type';
 
-const HomeScreen = ({
-  navigation,
-}: {
-  navigation: DrawerNavigationProp<DrawerParamList>;
-}) => {
+type HomeScreenNavigationProp = CompositeNavigationProp<DrawerTabScreenProps<'Home'>,NativeStackNavigationProp<GroupsParamList>>;
+const HomeScreen = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const {trigger, isMutating} = useSWRMutation(MONTHLY_EXPENSE, getExpenseData);
+
+  const {user} = useUserGlobalStore();
+  const [totalMonthlyExpense, setTotalMonthlyExpense] =
+    useState<ITotalMonthlyExpense>();
+  const getData = async () => {
+    const res = await trigger({
+      user: user?.email!,
+    });
+    setTotalMonthlyExpense(res.data[0]);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      getData();
+    }, []),
+  );
   return (
     <SafeAreaWrapper>
       <Header
@@ -24,22 +44,21 @@ const HomeScreen = ({
         }}
       />
       <ScrollView>
-        <Box p='4'>
-
-        <Welcome
-          onPress={() => {
-            navigation.navigate('Groups');
-          }}
-        />
-        <TotalAmount />
-        <ExpenseGraph />
-        <RecentTransactions />
-        <ViewGroup
-          onPress={() => {
-            navigation.navigate('Groups');
-          }}
-        />
-            </Box>
+        <Box p="4">
+          <Welcome
+            onPress={() => {
+              navigation.navigate('Groups',{screen:'GroupList'});
+            }}
+          />
+          <TotalAmount totalMonthlyExpense={totalMonthlyExpense!} />
+          <ExpenseGraph />
+          <RecentTransactions />
+          <ViewGroup
+            onPress={() => {
+              navigation.navigate('Groups',{screen:'GroupList'});
+            }}
+          />
+        </Box>
       </ScrollView>
     </SafeAreaWrapper>
   );

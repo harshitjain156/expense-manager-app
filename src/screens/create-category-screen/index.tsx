@@ -77,7 +77,6 @@ const CreateCategory = () => {
             await mutate(BASE_URL + "categories")
             navigation.goBack()
         } catch (error) {
-            console.log(error, 'create new category')
 
         }
     }

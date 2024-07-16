@@ -22,14 +22,12 @@ axiosInstance.interceptors.request.use(async (req) => {
     req.headers.Authorization = access_token
     return req
   } catch (err) {
-    console.log('++++++++++++++')
     return req
   }
 })
 
 
 export const fetcher = (url: string) =>
-  // console.log(url)
   axiosInstance.get(url).then((res) => res.data)
 export default axiosInstance
 

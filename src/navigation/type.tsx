@@ -58,14 +58,14 @@ declare global{
 
 
 export type AuthScreenNavigationType <RouteName extends keyof AuthStackParamList>=
-CompositeNavigationProp<NativeStackNavigationProp<AuthStackParamList,RouteName>,NativeStackNavigationProp<DrawerParamList>>
+CompositeNavigationProp<NativeStackNavigationProp<AuthStackParamList,RouteName>,DrawerNavigationProp<DrawerParamList,"Home">>
 
 
 
 export type RootTabScreenProps <Screen extends keyof RootBottomTabParamList>=
 CompositeNavigationProp<NativeStackNavigationProp<RootBottomTabParamList,Screen>,NativeStackNavigationProp<RootBottomTabParamList>>
 export type DrawerTabScreenProps <Screen extends keyof DrawerParamList>=
-CompositeNavigationProp<DrawerNavigationProp<DrawerParamList,Screen>,NativeStackNavigationProp<DrawerParamList>>
+CompositeNavigationProp<DrawerNavigationProp<DrawerParamList,Screen>,NativeStackNavigationProp<GroupsParamList,"GroupList">>
 
 
 export type CategoriesNavigationType=

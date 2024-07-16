@@ -1,47 +1,112 @@
-import {Dimensions} from 'react-native';
-import React, {useState} from 'react';
-import {Box, Button, Input, OutlinedButton, Text} from '../../../../components';
-import {DataTable} from 'react-native-paper';
-import {Calendar} from 'react-native-calendars';
-import {format} from 'date-fns';
+import { Dimensions } from 'react-native';
+import React, { useContext, useState } from 'react';
+import {
+  Box,
+  Button,
+  CustomInput,
+  Input,
+  OutlinedButton,
+  Text,
+} from '../../../../components';
+import { format } from 'date-fns';
 import { MAKE_SETTLE } from '../../../../utils/constants';
 import { getExpenseData } from '../../../../services/expenseapi';
 import useSWRMutation from 'swr/mutation';
 import DateTimePicker from '@react-native-community/datetimepicker';
-const SettlementModal = ({data, hide,groupId}: {data: string[]; hide: Function,groupId:string}) => {
-  const [isSelectingDate, setIsSelectingDate] = useState<boolean>(true);
-  const {trigger:makeSettlement, isMutating} = useSWRMutation(MAKE_SETTLE, getExpenseData);
-
+import { Controller, useForm } from 'react-hook-form';
+import { TextInput } from 'react-native-paper';
+import GroupContext from '../../../../store/groupContext';
+const SettlementModal = ({
+  data,
+  hide,
+  groupId,
+}: {
+  data: string[];
+  hide: Function;
+  groupId: string;
+}) => {
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<IMaleSettlement>({});
+  const { trigger: makeSettlement, isMutating } = useSWRMutation(
+    MAKE_SETTLE,
+    getExpenseData,
+  );
+  const {setContext}=useContext(GroupContext)
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectingDate, setIsSelectingDate] = useState<boolean>(false);
   return (
     <Box
-      style={{backgroundColor: '#ffffff90'}}
+      style={{ backgroundColor: '#ffffff90' }}
       flex={1}
       justifyContent="center"
       alignItems="center">
       <Box
         width={Dimensions.get('window').width * 0.8}
+        rowGap="2"
         padding="6"
         borderRadius="rounded-3xl"
         bg="white">
         <Text variant="textXl" paddingHorizontal="1" mb="6" fontWeight={900}>
           Settle Balance
         </Text>
-        <Text variant="textBase" paddingHorizontal="1" color="gray4">
-          Settlement from
-        </Text>
-        <Input label="Settlement to" value={data[0]} />
-        <Text variant="textBase" paddingHorizontal="1" color="gray4">
-          Settlement to
-        </Text>
-        <Input label="Settlement From" value={data[1]} />
-        <Text variant="textBase" paddingHorizontal="1" color="gray4">
-          Settlement date
-        </Text>
-        <Input label="Settlement to" />
-        <Text variant="textBase" paddingHorizontal="1" color="gray4">
-          Amount (in Rs)
-        </Text>
-        <Input label="Amount" value={data[2].toString()} />
+        <Controller
+          rules={{ required: true }}
+          control={control}
+          render={({ field: { onChange, onBlur, value = data[0] } }) => (
+            <CustomInput
+              editable={false}
+              label={'Settlement from'}
+              onBlur={onBlur}
+              value={value}
+              onChangeText={onChange}
+              errors={errors.settleFrom}
+            />
+          )}
+          name="settleFrom"
+        />
+        <Controller
+          rules={{ required: true }}
+          control={control}
+          render={({ field: { onChange, onBlur, value = data[1] } }) => (
+            <CustomInput
+              editable={false}
+              label={'Settlement to'}
+              onBlur={onBlur}
+              value={value}
+              onChangeText={onChange}
+              errors={errors.settleTo}
+            />
+          )}
+
+          name="settleTo"
+        />
+        <CustomInput
+          label={'Settlement Date'}
+          onPress={() => {
+            setIsSelectingDate(true);
+          }}
+          value={format(new Date(selectedDate!), 'dd/MM/yyyy')}
+        />
+        <Controller
+          rules={{ required: true }}
+          control={control}
+          render={({ field: { onChange, onBlur, value = parseFloat(data[2]).toString() } }) => (
+            <CustomInput
+              label={'Expense Amount'}
+              keyboardType={'number-pad'}
+              left={<TextInput.Affix text={`\u20A8`} />}
+              onBlur={onBlur}
+              value={value}
+              onChangeText={text => onChange(parseFloat(text))}
+              errors={errors.settleAmount}
+            />
+          )}
+          name="settleAmount"
+        />
         <Box
           gap={'5'}
           flexDirection="row"
@@ -56,22 +121,43 @@ const SettlementModal = ({data, hide,groupId}: {data: string[]; hide: Function,g
             />
           </Box>
           <Box flex={1}>
-            <Button label="Submit" onPress={async() => {
-                const settle={
-                    groupId:groupId,
-                    settleAmount:data[2],
-                    settleDate:Date.now(),
-                    settleFrom:data[0],
-                    settleTo:data[1]
-                }
-                 await makeSettlement(settle).then(()=>{hide()}).catch(err=>console.log(err))
-            }} />
+            <Button
+              label="Submit"
+              onPress={async () => {
+                const settle = {
+                  groupId: groupId,
+                  settleAmount: getValues('settleAmount') ?? data[2],
+                  settleDate: selectedDate,
+                  settleFrom: data[0],
+                  settleTo: data[1],
+                };
+                console.log(settle)
+                await makeSettlement(settle)
+                  .then((res) => {
+                    console.log(res)
+                    setContext(prev=>!prev)
+                    hide();
+                  })
+                  .catch(err => console.log(err));
+              }}
+            />
           </Box>
         </Box>
       </Box>
-      <DateTimePicker themeVariant='light' value={new Date()} mode='date' onChange={(event,selectedDate)=>{
-          console.log(selectedDate)
-        }}/>
+      {selectingDate && (
+        <DateTimePicker
+          themeVariant="light"
+          value={new Date()}
+          mode="date"
+          onChange={(event, date) => {
+            setSelectedDate(date!);
+            setIsSelectingDate(false);
+          }}
+          onTouchCancel={() => {
+            setIsSelectingDate(false);
+          }}
+        />
+      )}
     </Box>
   );
 };

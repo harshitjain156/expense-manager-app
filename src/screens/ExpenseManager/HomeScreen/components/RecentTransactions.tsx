@@ -22,7 +22,6 @@ const RecentTransactions = () => {
   };
   useEffect(() => {
     getData();
-    console.log(transactions);
   }, []);
 
   if (!(transactions.length > 0)) {
@@ -40,7 +39,7 @@ const RecentTransactions = () => {
 
       {transactions.map((item, index) => {
         return (
-          <TransactionCard key={index} transaction={transactions[index]} />
+          <TransactionCard key={index} transaction={item} />
         );
       })}
     </Card>

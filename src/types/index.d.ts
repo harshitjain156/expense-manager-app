@@ -3,7 +3,7 @@ interface IUser {
   firstName: string;
   lastName: string;
   password?: string;
-  userId?:string
+  userId?: string;
 }
 
 interface IAuthenticatedUser {
@@ -97,15 +97,20 @@ interface ICreateGroup {
   groupName: string;
 }
 
-interface ICreateExpense{
-  expenseName:string
-  expenseDescription:string
-  paymentMethod:string
-  expenseOwner:string
-  expenseAmount:string
-  expenseCategory:string
+interface ICreateExpense {
+  expenseName: string;
+  expenseDescription: string;
+  expenseType: string;
+  expenseOwner: string;
+  expenseAmount: number;
+  expenseCategory: string;
 }
-
+interface IMaleSettlement {
+  settleAmount: number |float;
+  // settleDate: string;
+  settleFrom: string;
+  settleTo: string;
+}
 interface IDailyExpense {
   _id: {date: 24; month: 6; year: 2024};
   amount: 4150;
