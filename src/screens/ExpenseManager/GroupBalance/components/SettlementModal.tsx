@@ -1,5 +1,5 @@
-import { Dimensions } from 'react-native';
-import React, { useContext, useState } from 'react';
+import {Dimensions} from 'react-native';
+import React, {useContext, useState} from 'react';
 import {
   Box,
   Button,
@@ -8,13 +8,13 @@ import {
   OutlinedButton,
   Text,
 } from '../../../../components';
-import { format } from 'date-fns';
-import { MAKE_SETTLE } from '../../../../utils/constants';
-import { getExpenseData } from '../../../../services/expenseapi';
+import {format} from 'date-fns';
+import {MAKE_SETTLE} from '../../../../utils/constants';
+import {getExpenseData} from '../../../../services/expenseapi';
 import useSWRMutation from 'swr/mutation';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Controller, useForm } from 'react-hook-form';
-import { TextInput } from 'react-native-paper';
+import {Controller, useForm} from 'react-hook-form';
+import {TextInput} from 'react-native-paper';
 import GroupContext from '../../../../store/groupContext';
 const SettlementModal = ({
   data,
@@ -29,18 +29,18 @@ const SettlementModal = ({
     control,
     handleSubmit,
     getValues,
-    formState: { errors },
+    formState: {errors},
   } = useForm<IMaleSettlement>({});
-  const { trigger: makeSettlement, isMutating } = useSWRMutation(
+  const {trigger: makeSettlement, isMutating} = useSWRMutation(
     MAKE_SETTLE,
     getExpenseData,
   );
-  const {setContext}=useContext(GroupContext)
+  const {setContext} = useContext(GroupContext);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectingDate, setIsSelectingDate] = useState<boolean>(false);
   return (
     <Box
-      style={{ backgroundColor: '#ffffff90' }}
+      style={{backgroundColor: '#ffffff90'}}
       flex={1}
       justifyContent="center"
       alignItems="center">
@@ -54,9 +54,9 @@ const SettlementModal = ({
           Settle Balance
         </Text>
         <Controller
-          rules={{ required: true }}
+          rules={{required: true}}
           control={control}
-          render={({ field: { onChange, onBlur, value = data[0] } }) => (
+          render={({field: {onChange, onBlur, value = data[0]}}) => (
             <CustomInput
               editable={false}
               label={'Settlement from'}
@@ -69,9 +69,9 @@ const SettlementModal = ({
           name="settleFrom"
         />
         <Controller
-          rules={{ required: true }}
+          rules={{required: true}}
           control={control}
-          render={({ field: { onChange, onBlur, value = data[1] } }) => (
+          render={({field: {onChange, onBlur, value = data[1]}}) => (
             <CustomInput
               editable={false}
               label={'Settlement to'}
@@ -81,7 +81,6 @@ const SettlementModal = ({
               errors={errors.settleTo}
             />
           )}
-
           name="settleTo"
         />
         <CustomInput
@@ -92,9 +91,11 @@ const SettlementModal = ({
           value={format(new Date(selectedDate!), 'dd/MM/yyyy')}
         />
         <Controller
-          rules={{ required: true }}
+          rules={{required: true}}
           control={control}
-          render={({ field: { onChange, onBlur, value = parseFloat(data[2]).toString() } }) => (
+          render={({
+            field: {onChange, onBlur, value = parseFloat(data[2]).toString()},
+          }) => (
             <CustomInput
               label={'Expense Amount'}
               keyboardType={'number-pad'}
@@ -131,11 +132,11 @@ const SettlementModal = ({
                   settleFrom: data[0],
                   settleTo: data[1],
                 };
-                console.log(settle)
+                console.log(settle);
                 await makeSettlement(settle)
-                  .then((res) => {
-                    console.log(res)
-                    setContext(prev=>!prev)
+                  .then(res => {
+                    console.log(res);
+                    setContext(prev => !prev);
                     hide();
                   })
                   .catch(err => console.log(err));

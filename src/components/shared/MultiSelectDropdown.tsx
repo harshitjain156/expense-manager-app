@@ -8,9 +8,14 @@ type DropdownProps = {
   data: {label: string; value: string}[];
   selected: string[];
   setSelected: any;
-  label?:string
+  label?: string;
 };
-const MultiSelectDropdown = ({data, selected, setSelected,label}: DropdownProps) => {
+const MultiSelectDropdown = ({
+  data,
+  selected,
+  setSelected,
+  label,
+}: DropdownProps) => {
   const [error, setError] = useState('');
   return (
     <Box>
@@ -26,8 +31,7 @@ const MultiSelectDropdown = ({data, selected, setSelected,label}: DropdownProps)
         data={data}
         labelField="label"
         valueField="value"
-        
-        placeholder={label ?? "Select item"}
+        placeholder={label ?? 'Select item'}
         searchPlaceholder="Search..."
         value={selected}
         onChange={item => {

@@ -1,53 +1,68 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { GroupBalance, GroupExpenses, GroupListScreen, HomeScreen } from '../screens';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {
+  GroupBalance,
+  GroupExpenses,
+  GroupListScreen,
+  HomeScreen,
+} from '../screens';
 import theme from '../utils/theme';
-import { Dimensions, View } from 'react-native';
-import { Box, Button, Text } from '../components';
+import {Dimensions, View} from 'react-native';
+import {Box, Button, Text} from '../components';
 
 const Tab = createMaterialTopTabNavigator();
 
-const GroupTabNavigator=({group}:{group:IGroup})=> {
+const GroupTabNavigator = ({group}: {group: IGroup}) => {
   return (
-    <Tab.Navigator screenOptions={{
-        tabBarStyle:{
-            shadowColor:'white'
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          shadowColor: 'white',
         },
-        tabBarLabelStyle:{
-            fontWeight:900,
-            textTransform:'capitalize'
+        tabBarLabelStyle: {
+          fontWeight: 900,
+          textTransform: 'capitalize',
         },
         // tabBarIndicator:()=><Box bg='red300' height={60} />,
-        tabBarIndicatorContainerStyle:{
-            justifyContent:'center',
-            alignItems:'center'
+        tabBarIndicatorContainerStyle: {
+          justifyContent: 'center',
+          alignItems: 'center',
         },
-        tabBarIndicatorStyle:{
-            backgroundColor:theme.colors.blu300,
-            margin:6,
-            height:40,
-            borderRadius:10
+        tabBarIndicatorStyle: {
+          backgroundColor: theme.colors.blu300,
+          margin: 6,
+          height: 40,
+          borderRadius: 10,
         },
-        tabBarItemStyle:{
-            justifyContent:'center',
-            alignItems:'center',
-            width:Dimensions.get('window').width*.32,
-            margin:2,
-            padding:2,
-            borderRadius:4,
-           
+        tabBarItemStyle: {
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: Dimensions.get('window').width * 0.32,
+          margin: 2,
+          padding: 2,
+          borderRadius: 4,
         },
-        tabBarAndroidRipple:{
-            foreground:false,
-            color:'transparent'
-        }
-        
-    }} >
-      <Tab.Screen name="Group Expense" component={GroupExpenses} initialParams={group}  />
-      <Tab.Screen name="Group Balance"  component={GroupBalance} initialParams={group}/>
-      <Tab.Screen name="My Balance" component={GroupExpenses} />
+        tabBarAndroidRipple: {
+          foreground: false,
+          color: 'transparent',
+        },
+      }}>
+      <Tab.Screen
+        name="Group Expense"
+        component={GroupExpenses}
+        initialParams={group}
+      />
+      <Tab.Screen
+        name="Group Balance"
+        component={GroupBalance}
+        initialParams={group}
+      />
+      <Tab.Screen
+        name="My Balance"
+        component={GroupExpenses}
+        initialParams={group}
+      />
     </Tab.Navigator>
   );
-}
+};
 
-
-export default GroupTabNavigator
+export default GroupTabNavigator;

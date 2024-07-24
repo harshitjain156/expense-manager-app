@@ -14,7 +14,7 @@ export enum Month {
 }
 
 export enum ChartColor {
-  'Food & drink' = '#6366f1',
+  'Food & Drink' = '#6366f1',
   'Home' = '#79D2DE',
   'Shopping' = '#22c55e',
   'Entertainment' = '#007AFF',

@@ -7,7 +7,7 @@ import {DropdownProps} from 'react-native-element-dropdown/lib/typescript/compon
 import {FieldError} from 'react-hook-form';
 import {Text} from '../theme';
 type InputProps = {
-  data: { label: string; value: string }[];
+  data: {label: string; value: string}[];
   value: string;
   label?: string;
   onChangeText: (value: string) => void;

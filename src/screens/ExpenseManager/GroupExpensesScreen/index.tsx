@@ -19,11 +19,10 @@ import {getExpenseData} from '../../../services/expenseapi';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
 import {ChartColor} from '../../../types/enums';
 import {Modal, TouchableOpacity} from 'react-native';
-type ChartDataType={
-  amount: number,
-  _id: string,
-  
-}
+type ChartDataType = {
+  amount: number;
+  _id: string;
+};
 const GroupExpenses = () => {
   const route = useRoute();
   const [categories, setCategories] = useState<pieDataItem[]>([]);
@@ -34,59 +33,68 @@ const GroupExpenses = () => {
   );
   const {trigger: getGroupExpense, isMutating: isExpenseLoading} =
     useSWRMutation(GET_GROUP_EXPENSE, getExpenseData);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [transaction, setTransactions] = useState<ITransactions[]>([]);
-  const getData = async () => {
-    try {
-      const res = await getCategories({id: group._id});
-      const expenses = await getGroupExpense({id: group._id});
-      setTransactions(expenses.expense);
-      console.log(res, '=================');
-      const chartData:pieDataItem[] = res.data.map((item:ChartDataType) => {
-        return {
-          value: item.amount,
-          color: ChartColor[item._id as keyof typeof ChartColor],
-          text: item._id,
-        };
+  const getCategoryExpense = async () => {
+    await getCategories({id: group._id})
+      .then(res => {
+        const chartData: pieDataItem[] = res.data.map((item: ChartDataType) => {
+          return {
+            value: item.amount,
+            color: ChartColor[item._id as keyof typeof ChartColor],
+            text: item._id,
+          };
+        });
+        setCategories(chartData);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        setIsLoading(false);
       });
-      setCategories(chartData);
-    } catch (error) {}
+  };
+  const getGroupTransactions = async () => {
+    await getGroupExpense({id: group._id})
+      .then(res => {
+        setTransactions(res.expense);
+        setIsLoading(false);
+      })
+      .catch(e => {
+        setIsLoading(false);
+      });
   };
   useFocusEffect(
     useCallback(() => {
-      getData();
+      getGroupTransactions();
+      getCategoryExpense();
     }, []),
   );
 
-  if (transaction.length == 0 && categories.length == 0) {
-    return (
-      <SafeAreaWrapper>
-        <Box flex={1} height={300} justifyContent="center">
-          <Text textAlign="center">Please add transactions</Text>
-        </Box>
-      </SafeAreaWrapper>
-    );
+  if (isLoading) {
+    return <Loader />;
   }
   return (
     <SafeAreaWrapper>
-      <Box justifyContent="center" alignItems="center">
-        <CustomPieChart
-          label="Category Expense Chart"
-          categories={categories}
-        />
-        <Card flex={1} variant="elevated" p="2" backgroundColor="white">
-          <Text mb="4" variant="textXl" fontWeight={900}>
-            Group Recent Transactions
-          </Text>
+      {transaction.length == 0 && categories.length == 0 ? (
+        <Box flex={1} height={300} justifyContent="center">
+          <Text textAlign="center">Please add transactions</Text>
+        </Box>
+      ) : (
+        <Box justifyContent="center" alignItems="center">
+          <CustomPieChart
+            label="Category Expense Chart"
+            categories={categories}
+          />
+          <Card flex={1} variant="elevated" p="2" backgroundColor="white">
+            <Text mb="4" variant="textXl" fontWeight={900}>
+              Group Recent Transactions
+            </Text>
 
-          {transaction.map((item, index) => {
-            return (
-              <TouchableOpacity onPress={() => {}}>
-                <TransactionCard key={item._id} transaction={item} />
-              </TouchableOpacity>
-            );
-          })}
-        </Card>
-      </Box>
+            {transaction.map((item, index) => {
+              return <TransactionCard key={item._id} transaction={item} />;
+            })}
+          </Card>
+        </Box>
+      )}
     </SafeAreaWrapper>
   );
 };

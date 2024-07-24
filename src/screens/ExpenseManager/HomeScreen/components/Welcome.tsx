@@ -1,17 +1,15 @@
 import React from 'react';
 import Button from '../../../../components/shared/Button';
 import {Image} from 'react-native';
-import { Box, Text,Card } from '../../../../components';
+import {Box, Text, Card} from '../../../../components';
 
 const Welcome = ({onPress}: {onPress: Function}) => {
   return (
     <Card
-      variant='elevated'
-      
+      variant="elevated"
       paddingHorizontal="6"
       pt="6"
-      backgroundColor="sky200"
-      >
+      backgroundColor="sky200">
       <Text variant="textXl" fontWeight={900} color="blu900">
         Hello there, Welcome back!
       </Text>

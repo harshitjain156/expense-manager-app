@@ -14,7 +14,6 @@ const ViewGroup = ({onPress}: {onPress: Function}) => {
         style={{resizeMode: 'stretch', width: '100%', height: 200}}
         source={require('../../../../assets/illustrations/dashboard-card.png')}
       />
-
       <Box height={16} />
       <Text
         variant="textBase"

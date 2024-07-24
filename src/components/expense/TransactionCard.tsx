@@ -2,8 +2,8 @@ import {StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Month} from '../../types/enums';
 
-import { convertToCurrency } from '../../utils/helpers';
-import { Box, Text } from '../';
+import {convertToCurrency} from '../../utils/helpers';
+import {Box, Text} from '../';
 
 const TransactionCard = ({transaction}: {transaction: ITransactions}) => {
   const date = new Date(transaction.expenseDate);
@@ -27,7 +27,7 @@ const TransactionCard = ({transaction}: {transaction: ITransactions}) => {
           justifyContent="center"
           alignItems="center">
           <Text variant="textXl" lineHeight={20} fontWeight={900}>
-          {new Date(transaction.expenseDate).getDate()}
+            {new Date(transaction.expenseDate).getDate()}
           </Text>
           <Text variant="textXl" lineHeight={20}>
             {Month[month + 1]}
@@ -53,9 +53,7 @@ const TransactionCard = ({transaction}: {transaction: ITransactions}) => {
           Rs.{convertToCurrency(transaction.expensePerMember)}
         </Text>
       </Box>
-      
     </Box>
-
   );
 };
 

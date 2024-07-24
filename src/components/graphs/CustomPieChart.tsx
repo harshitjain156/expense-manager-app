@@ -10,6 +10,7 @@ const CustomPieChart = ({
   categories: pieDataItem[];
   label: string;
 }) => {
+  console.log(categories)
   return (
     <Box
       elevation={2}

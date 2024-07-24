@@ -3,7 +3,6 @@ import {Box, Card, SafeAreaWrapper, Text} from '../../../components';
 import {GroupsParamList} from '../../../navigation/type';
 import {checkActive, convertToCurrency} from '../../../utils/helpers';
 import useUserGlobalStore from '../../../store/useUserGlobalStore';
-import {Button} from 'react-native-paper';
 import {Icon} from 'react-native-elements';
 import DetailCard from './components/DetailCard';
 import {Modal, Pressable, ScrollView} from 'react-native';

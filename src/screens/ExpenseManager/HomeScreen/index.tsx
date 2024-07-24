@@ -12,11 +12,15 @@ import {MONTHLY_EXPENSE} from '../../../utils/constants';
 import useSWRMutation from 'swr/mutation';
 import {getExpenseData} from '../../../services/expenseapi';
 import useUserGlobalStore from '../../../store/useUserGlobalStore';
-import {CompositeNavigationProp, CompositeScreenProps, useFocusEffect, useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {DrawerParamList, DrawerTabScreenProps, GroupsParamList} from '../../../navigation/type';
+import {
+  CompositeNavigationProp,
+  useFocusEffect,
+  useNavigation,
+} from '@react-navigation/native';
+import {DrawerTabScreenProps, GroupsParamList} from '../../../navigation/type';
 
-type HomeScreenNavigationProp = CompositeNavigationProp<DrawerTabScreenProps<'Home'>,NativeStackNavigationProp<GroupsParamList>>;
+type HomeScreenNavigationProp = DrawerTabScreenProps<'Home'>;
+
 const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const {trigger, isMutating} = useSWRMutation(MONTHLY_EXPENSE, getExpenseData);
@@ -47,7 +51,7 @@ const HomeScreen = () => {
         <Box p="4">
           <Welcome
             onPress={() => {
-              navigation.navigate('Groups',{screen:'GroupList'});
+              navigation.navigate('Groups', {screen: 'GroupList'});
             }}
           />
           <TotalAmount totalMonthlyExpense={totalMonthlyExpense!} />
@@ -55,7 +59,7 @@ const HomeScreen = () => {
           <RecentTransactions />
           <ViewGroup
             onPress={() => {
-              navigation.navigate('Groups',{screen:'GroupList'});
+              navigation.navigate('Groups', {screen: 'GroupList'});
             }}
           />
         </Box>

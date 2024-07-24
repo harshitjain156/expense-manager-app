@@ -52,14 +52,14 @@ const CreateGroup = ({navigation}: {navigation: any}) => {
   } = useForm<Omit<ICreateGroup, 'groupMembers' | 'groupCurrency'>>({});
 
   const clear = () => {
-    control._reset()
-    setValue("groupName","")
-    setValue("groupDescription","")
+    control._reset();
+    setValue('groupName', '');
+    setValue('groupDescription', '');
     setSelected([user?.email!]);
     setCategory('');
   };
   useEffect(() => {
-    control._reset()
+    control._reset();
     clear();
 
     if (route.params?.group) {
@@ -67,9 +67,8 @@ const CreateGroup = ({navigation}: {navigation: any}) => {
       setValue('groupDescription', route.params.group?.groupDescription);
       setSelected(route.params.group?.groupMembers);
       setCategory(route.params.group?.groupCategory);
-    } 
+    }
     return;
-
   }, [navigation, route]);
   if (isLoading) {
     return <Loader />;
@@ -146,41 +145,7 @@ const CreateGroup = ({navigation}: {navigation: any}) => {
             )}
             name="groupName"
           />
-          {/* <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, onBlur, value}}) =>{ 
-              return (
-              <Input
-                label="Group Name"
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                placeholder="Group Name"
-                error={errors.groupName}
-              />
-            )}}
-            name="groupName"
-          /> */}
-          {/* <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, onBlur, value}}) => (
-              <Input
-                label="Group Description"
-                placeholder="Group Description"
-                onChangeText={onChange}
-                value={value}
-                numberOfLines={5}
-                error={errors.groupDescription}
-              />
-            )}
-            name="groupDescription"
-          /> */}
+
           <Controller
             rules={{required: true}}
             control={control}
@@ -223,16 +188,14 @@ const CreateGroup = ({navigation}: {navigation: any}) => {
             )}
             name="groupCategory"
           />
-          {/* <CustomDropdown
-          onChangeText={()=>{ }}
-            value={category}
-            setValue={setCategory}
-            data={DropdownData}
-          /> */}
-          {/* <Box height={16} /> */}
+
           <Button
             label={route.params.group ? 'Edit' : 'Create'}
-            onPress={route.params?.group ? handleSubmit(onEdit) : handleSubmit(onSubmit)}
+            onPress={
+              route.params?.group
+                ? handleSubmit(onEdit)
+                : handleSubmit(onSubmit)
+            }
           />
         </Box>
       </ScrollView>
