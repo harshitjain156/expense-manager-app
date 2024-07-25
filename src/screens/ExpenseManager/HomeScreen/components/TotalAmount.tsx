@@ -4,34 +4,29 @@ import useUserGlobalStore from '../../../../store/useUserGlobalStore';
 import {getExpenseData} from '../../../../services/expenseapi';
 import {MONTHLY_EXPENSE} from '../../../../utils/constants';
 import {Box, Card, Text} from '../../../../components';
+import {convertToCurrency} from '../../../../utils/helpers';
+import {Icon} from 'react-native-elements';
 
-const TotalAmount = () => {
-  const {trigger, isMutating} = useSWRMutation(
-    MONTHLY_EXPENSE,
-    getExpenseData,
-    {
-      revalidate: true,
-    },
-  );
-
-  const {user} = useUserGlobalStore();
-  const [totalMonthlyExpense, setTotalMonthlyExpense] =
-    useState<ITotalMonthlyExpense>();
-  const getData = async () => {
-    const res = await trigger({
-      user: user?.email!,
-    });
-    setTotalMonthlyExpense(res.data[0]);
-  };
-  useEffect(() => {
-    getData();
-  }, []);
-
+const TotalAmount = ({
+  totalMonthlyExpense,
+}: {
+  totalMonthlyExpense: ITotalMonthlyExpense;
+}) => {
   return (
     <Card variant="elevated" p="6" backgroundColor="sky200">
       <Box flexDirection="row">
-        <Box borderRadius="rounded-9xl" height={60} width={60} bg="blu700">
-          {/* =======This box is for icon ========== */}
+        <Box
+          borderRadius="rounded-9xl"
+          justifyContent="center"
+          height={60}
+          width={60}
+          bg="blu700">
+          <Icon
+            name={'clipboard-notes'}
+            color={'white'}
+            size={30}
+            type="foundation"
+          />
         </Box>
         <Box width={16} />
         <Box flexDirection="column">
@@ -39,7 +34,7 @@ const TotalAmount = () => {
             Total
           </Text>
           <Text variant="text2Xl" fontWeight={700} color="blu700">
-            Rs.{totalMonthlyExpense?.amount ?? 0}
+            Rs.{convertToCurrency(totalMonthlyExpense?.amount ?? 0)}
           </Text>
         </Box>
       </Box>

@@ -11,7 +11,6 @@ const CategoriesScreen = () => {
   const { data, isLoading, error } = useSWR<ICategory[]>('categories', fetcher,{
     refreshInterval:2000
   })
-  // console.log(data,TOKEN_NAME)
   const renderItem = ({ item }: { item: ICategory }) => (
     <Category item={item}/>
   );

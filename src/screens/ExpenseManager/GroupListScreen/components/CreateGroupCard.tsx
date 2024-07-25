@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
-import { Box, Card, Text } from '../../../../components';
+import {Card, Text} from '../../../../components';
 
 const CreateGroupCard = ({onPress}: {onPress: Function}) => {
   return (
@@ -8,11 +8,10 @@ const CreateGroupCard = ({onPress}: {onPress: Function}) => {
       onPress={() => {
         onPress();
       }}>
-      <Card variant='elevated'
+      <Card
+        variant="elevated"
         backgroundColor="blu300"
-        flex={1}
         height={250}
-      
         justifyContent="center"
         alignItems="center">
         <Text variant="text3Xl" color="white" fontWeight={900}>

@@ -1,33 +1,28 @@
-import theme from "../../utils/theme"
-import { FieldError } from "react-hook-form"
-import { StyleSheet, TextInput, TextInputProps } from "react-native"
-import { black, grey400 } from "react-native-paper/lib/typescript/styles/themes/v2/colors"
-import { Box, Text } from "../theme"
+import theme from '../../utils/theme';
+import {FieldError} from 'react-hook-form';
+import {StyleSheet, TextInput, TextInputProps} from 'react-native';
+import {Box, Text} from '../theme';
 
 type InputProps = {
-  label: string
-  error?: FieldError | undefined
-} & TextInputProps
+  label: string;
+  error?: FieldError | undefined;
+} & TextInputProps;
 
-
-const Input = ({ label, error, ...props }: InputProps) => {
-    
+const Input = ({label, error, ...props}: InputProps) => {
   return (
     <Box flexDirection="column" mb="3">
-      <TextInput      
-          numberOfLines={props.numberOfLines}
-          textAlignVertical="top"
-          
-          placeholder={label}
-          placeholderTextColor={'gray'}
-          
-        style={{ 
-          fontSize:18,
-          color:'black',
+      <TextInput
+        numberOfLines={props.numberOfLines}
+        textAlignVertical="top"
+        placeholder={label}
+        placeholderTextColor={'gray'}
+        style={{
+          fontSize: 18,
+          color: 'black',
           padding: 16,
           borderWidth: 1,
           borderColor: error ? theme.colors.rose500 : theme.colors.grey,
-          borderRadius: theme.borderRadii["rounded-3xl"],
+          borderRadius: theme.borderRadii['rounded-3xl'],
         }}
         {...props}
       />
@@ -37,9 +32,9 @@ const Input = ({ label, error, ...props }: InputProps) => {
         </Text>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

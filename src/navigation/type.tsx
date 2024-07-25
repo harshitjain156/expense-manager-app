@@ -1,3 +1,4 @@
+import { DrawerNavigationProp } from "@react-navigation/drawer"
 import { CompositeNavigationProp, NavigatorScreenParams } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 
@@ -34,11 +35,14 @@ export type AppStackParamList={
     Root:NavigatorScreenParams<RootBottomTabParamList>
     settings:undefined
 }
-
+export type GroupsParamList={
+    GroupList:undefined
+    GroupDetails:{group?:IGroup}
+}
 export type DrawerParamList={
-    HomeStack:NavigatorScreenParams<AppStackParamList>
-    Groups:undefined
-    CreateGroup:undefined
+    Home:undefined
+    Groups:NavigatorScreenParams<GroupsParamList>
+    CreateGroup:{group?:IGroup}
 }
 export type RootStackParamList={
     AppStack:NavigatorScreenParams<DrawerParamList>
@@ -54,12 +58,14 @@ declare global{
 
 
 export type AuthScreenNavigationType <RouteName extends keyof AuthStackParamList>=
-CompositeNavigationProp<NativeStackNavigationProp<AuthStackParamList,RouteName>,NativeStackNavigationProp<DrawerParamList>>
+CompositeNavigationProp<NativeStackNavigationProp<AuthStackParamList,RouteName>,DrawerNavigationProp<DrawerParamList,"Home">>
 
 
 
 export type RootTabScreenProps <Screen extends keyof RootBottomTabParamList>=
 CompositeNavigationProp<NativeStackNavigationProp<RootBottomTabParamList,Screen>,NativeStackNavigationProp<RootBottomTabParamList>>
+export type DrawerTabScreenProps <Screen extends keyof DrawerParamList>=
+CompositeNavigationProp<DrawerNavigationProp<DrawerParamList,Screen>,NativeStackNavigationProp<GroupsParamList,"GroupList">>
 
 
 export type CategoriesNavigationType=

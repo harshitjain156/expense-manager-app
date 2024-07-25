@@ -1,22 +1,19 @@
 import React from 'react';
 import {Image} from 'react-native';
-import { Box, Card, OutlinedButton, Text } from '../../../../components';
+import {Box, Card, OutlinedButton, Text} from '../../../../components';
 
 const ViewGroup = ({onPress}: {onPress: Function}) => {
   return (
     <Card
-      
-    variant='elevated'
+      variant="elevated"
       p="6"
       backgroundColor="green200"
-      
       justifyContent="center"
       alignItems="center">
       <Image
         style={{resizeMode: 'stretch', width: '100%', height: 200}}
         source={require('../../../../assets/illustrations/dashboard-card.png')}
       />
-
       <Box height={16} />
       <Text
         variant="textBase"

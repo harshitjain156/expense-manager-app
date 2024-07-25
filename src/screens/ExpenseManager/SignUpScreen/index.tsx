@@ -4,7 +4,7 @@ import {AuthScreenNavigationType} from '../../../navigation/type';
 import {registerUser} from '../../../services/api';
 import {Controller, useForm} from 'react-hook-form';
 import MoveToSignIn from './components/MoveToSignIn';
-import { Box, Button, Input, Text } from '../../../components';
+import {Box, Button, Input, Text} from '../../../components';
 
 const SignUpScreen = () => {
   const {
@@ -22,7 +22,6 @@ const SignUpScreen = () => {
   const onSubmit = async (data: IUser) => {
     const {firstName, lastName, email, password} = data;
     try {
-      // console.log(data);
       await registerUser({
         email,
         firstName,
@@ -123,9 +122,11 @@ const SignUpScreen = () => {
       <Box mb="4" />
       <Button uppercase label="Register" onPress={handleSubmit(onSubmit)} />
 
-      <MoveToSignIn onPress={()=>{
-        navigation.navigate('SignIn');
-      }}/>
+      <MoveToSignIn
+        onPress={() => {
+          navigation.navigate('SignIn');
+        }}
+      />
     </Box>
   );
 };

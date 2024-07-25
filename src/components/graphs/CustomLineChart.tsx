@@ -1,18 +1,14 @@
 import {View, Dimensions} from 'react-native';
 import React from 'react';
 import {LineChart, PieChart} from 'react-native-chart-kit';
-import { Box, Card, Text } from '../theme';
+import {Box, Card, Text} from '../theme';
 
 const CustomLineChart = ({data}: {data: any}) => {
   if (!(data.labels.length > 0)) {
     return null;
   }
   return (
-    <Card
-      variant='elevated'
-      p="6"
-      bg="white"
-      >
+    <Card variant="elevated" p="6" bg="white">
       <Text mb="4" variant="textXl" fontWeight={700} textAlign="left">
         Expense Graph
       </Text>

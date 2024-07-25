@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Text } from '../../../../utils/theme';
 import { TouchableOpacity } from 'react-native';
+import { Box, Text } from '../../../../components';
 
 export default function MoveToSignIn( {onPress}:{onPress:Function}) {
   return (

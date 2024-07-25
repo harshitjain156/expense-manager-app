@@ -21,7 +21,7 @@ const CategoryScreen = () => {
     refreshInterval:1000
   })
   const {data:category,isLoading:isLoadingCategory}=useSWR<ICategory>(`categories/${id}`,fetcher)
-  console.log(tasks)
+  
 
   if(isLoading || isLoadingCategory || !category || !tasks ){
     <Loader />
