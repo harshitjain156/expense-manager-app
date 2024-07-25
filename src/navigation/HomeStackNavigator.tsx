@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 import { HomeStackParamList } from './type'
-
-import HomeScreen from '../screens/home-screen'
 import EditTaskScreen from '../screens/edit-task-screen'
+import Home from '../screens/home'
+
 
 const Stack=createNativeStackNavigator<HomeStackParamList>()
 const HomeStackNavigator = () => {
@@ -11,7 +11,7 @@ const HomeStackNavigator = () => {
     <Stack.Navigator>
         <Stack.Screen 
         name='Home'
-        component={HomeScreen}
+        component={Home}
         options={{headerShown:false}}
         />
         <Stack.Screen 

@@ -1,12 +1,13 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Box, Text} from '../../utils/theme';
 import {Month} from '../../types/enums';
+
+import {convertToCurrency} from '../../utils/helpers';
+import {Box, Text} from '../';
 
 const TransactionCard = ({transaction}: {transaction: ITransactions}) => {
   const date = new Date(transaction.expenseDate);
   const month = date.getUTCMonth();
-
   return (
     <Box
       mt="2"
@@ -26,7 +27,7 @@ const TransactionCard = ({transaction}: {transaction: ITransactions}) => {
           justifyContent="center"
           alignItems="center">
           <Text variant="textXl" lineHeight={20} fontWeight={900}>
-            {24}
+            {new Date(transaction.expenseDate).getDate()}
           </Text>
           <Text variant="textXl" lineHeight={20}>
             {Month[month + 1]}
@@ -35,10 +36,10 @@ const TransactionCard = ({transaction}: {transaction: ITransactions}) => {
         <Box width={16} />
         <Box>
           <Text variant="textBase" color="blu500" fontWeight={900}>
-            My Expense
+            {transaction.expenseName}
           </Text>
           <Text variant="textBase" color="blu500" fontWeight={700}>
-            Total: Rs. {transaction.expenseAmount}
+            Total: Rs.{transaction.expenseAmount}
           </Text>
           <Text variant="textXs">Paid by</Text>
           <Text variant="textXs">{transaction.expenseOwner}</Text>
@@ -48,8 +49,8 @@ const TransactionCard = ({transaction}: {transaction: ITransactions}) => {
         <Text variant="textBase" color="red800" fontWeight={900}>
           Per Person
         </Text>
-        <Text variant="textBase" color="red800" fontWeight={700}>
-          Rs. {transaction.expensePerMember}
+        <Text variant="textXs" color="red800" fontWeight={700}>
+          Rs.{convertToCurrency(transaction.expensePerMember)}
         </Text>
       </Box>
     </Box>

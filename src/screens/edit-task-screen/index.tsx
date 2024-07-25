@@ -147,7 +147,6 @@ const updateTask=async () => {
         data={categories}
         renderItem={({item,index})=>{
             return <Pressable onPress={()=>{
-                console.log("[[[[[[[[[[[[")
                 setUpdatedTask(prev=>{
                     return {
                         ...prev,

@@ -1,3 +1,4 @@
+import { backgroundColor } from "@shopify/restyle"
 
 export const textVariants = {
     defaults: {},
@@ -37,5 +38,6 @@ export const textVariants = {
       color: "gray8",
     },
   }
-  
+
+
   

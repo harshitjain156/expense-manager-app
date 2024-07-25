@@ -1,7 +1,9 @@
 
-import { createBox, createText, createTheme } from "@shopify/restyle"
+import { createTheme} from "@shopify/restyle"
 import { colors } from "./colors"
-import { textVariants } from "./text-variants"
+import { textVariants} from "./text-variants"
+import { cardVariants} from "./card-variants"
+
 
 const theme = createTheme({
   colors: colors,
@@ -33,12 +35,11 @@ const theme = createTheme({
     "rounded-9xl": 50,
   },
   textVariants,
+  cardVariants
+  
 })
 
 export type Theme = typeof theme
-
-export const Box = createBox<Theme>()
-export const Text = createText<Theme>()
 
 
 export default theme

@@ -7,6 +7,9 @@ import DrawerNavigator from './DrawerNavigator';
 
 const Navigation = () => {
   const {user, updateUser} = useUserGlobalStore();
+
+
+  //-----this is user for clear user data during development-------
   // useEffect(()=>{
   //     updateUser(null)
 
@@ -16,7 +19,6 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       {user ? <DrawerNavigator /> : <AuthStackNavigator />}
-      {/* <DrawerNavigator /> */}
     </NavigationContainer>
   );
 };

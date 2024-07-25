@@ -18,7 +18,7 @@ const createTaskRequest =async (url:string,{arg}:{arg:ITaskRequest}) => {
         const res=await axiosInstance.post(url,{
             ...arg
         })
-        console.log(res)
+        
     } catch (error) {
         
     }
@@ -55,7 +55,6 @@ const TaskActions = ({categoryId}:TAskActionProps) => {
                 date:todasISODate,
                 name:""
             })
-            console.log(data)
 
         }
     
@@ -142,7 +141,6 @@ const TaskActions = ({categoryId}:TAskActionProps) => {
         data={categories}
         renderItem={({item,index})=>{
             return <Pressable onPress={()=>{
-                console.log("[[[[[[[[[[[[")
                 setNewTask(prev=>{
                     return {
                         ...prev,

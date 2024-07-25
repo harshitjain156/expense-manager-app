@@ -3,7 +3,7 @@ interface IUser {
   firstName: string;
   lastName: string;
   password?: string;
-  userId?:string
+  userId?: string;
 }
 
 interface IAuthenticatedUser {
@@ -64,23 +64,18 @@ interface ITotalMonthlyExpense {
 }
 
 interface ITransactions {
-  _id: '667a90b3d528699b02b10e17';
-  groupId: '667a908dd528699b02b10e07';
-  expenseName: 'tickets';
-  expenseDescription: 'movie tickets';
-  expenseAmount: 2000;
-  expenseCategory: 'Entertainment';
-  expenseCurrency: 'INR';
-  expenseDate: '2024-06-25T09:40:33.000Z';
-  expenseOwner: 'test-mail5@gmail.com';
-  expenseMembers: [
-    'test-mail3@gmail.com',
-    'test-mail5@gmail.com',
-    'test-mail4@gmail.com',
-    'test-mail@gmail.com',
-  ];
-  expensePerMember: 500;
-  expenseType: 'UPI Payment';
+  _id: string;
+  groupId: string;
+  expenseName: string;
+  expenseDescription: string;
+  expenseAmount: number;
+  expenseCategory: string;
+  expenseCurrency: string;
+  expenseDate: string;
+  expenseOwner: string;
+  expenseMembers: string[];
+  expensePerMember: number;
+  expenseType: string;
 }
 
 interface IGroup {
@@ -94,7 +89,28 @@ interface IGroup {
   split: any;
   _id: string;
 }
+interface ICreateGroup {
+  groupCategory: string;
+  groupCurrency: string;
+  groupDescription: string;
+  groupMembers: string[];
+  groupName: string;
+}
 
+interface ICreateExpense {
+  expenseName: string;
+  expenseDescription: string;
+  expenseType: string;
+  expenseOwner: string;
+  expenseAmount: number;
+  expenseCategory: string;
+}
+interface IMaleSettlement {
+  settleAmount: number |float;
+  // settleDate: string;
+  settleFrom: string;
+  settleTo: string;
+}
 interface IDailyExpense {
   _id: {date: 24; month: 6; year: 2024};
   amount: 4150;
